@@ -1,0 +1,2489 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cristal Energy Power Generation | Energia solar inteligente para empresas</title>
+  <meta name="description"
+    content="Soluções em energia desenvolvidas para diferentes perfis de operação, combinando tecnologia, estratégia e eficiência para transformar a forma como sua empresa utiliza energia.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=Urbanist:wght@400;500;600;700&display=swap"
+    rel="stylesheet">
+  <style>
+    /* ==========================================================
+     CRISTAL ENERGY POWER GENERATION — DESIGN SYSTEM
+     ========================================================== */
+    :root {
+      /* Cores extraídas do design (Figma) */
+      --navy-900: #092947;
+      /* azul marinho principal (logo, cards, textos de destaque) */
+      --navy-800: #0d3155;
+      --navy-700: #113C67;
+      /* gradiente seção contato */
+      --navy-600: #153F6A;
+      --navy-ink: #12172a;
+      /* texto escuro quase-preto usado em títulos sobre fundo claro */
+      --gold: #D8B46D;
+      /* dourado da marca */
+      --gold-dark: #C79A4B;
+      --gray-50: #F7F7F8;
+      --gray-100: #EDEDEF;
+      /* fundo cinza claro das seções (Serviços/Ecossistema) */
+      --gray-200: #E3E4E7;
+      --gray-400: #97989C;
+      /* ícones outline */
+      --gray-600: #5B5F66;
+      --gray-700: #3C4048;
+      --white: #FFFFFF;
+      --overlay-dark: rgba(9, 26, 45, .55);
+
+      --font-display: 'Syne', -apple-system, 'Segoe UI', sans-serif;
+      /* headings — Syne Bold */
+      --font-body: 'Urbanist', -apple-system, 'Segoe UI', sans-serif;
+      /* títulos e textos — Urbanist */
+
+      --container: 1280px;
+      --gap-xs: 8px;
+      --gap-sm: 16px;
+      --gap-md: 24px;
+      --gap-lg: 40px;
+      --gap-xl: 64px;
+      --gap-2xl: 96px;
+
+      --radius-sm: 0px;
+      --radius-md: 0px;
+      --radius-lg: 0px;
+      --radius-full: 0px;
+
+      --shadow-sm: 0 2px 8px rgba(9, 41, 71, .08);
+      --shadow-md: 0 8px 24px rgba(9, 41, 71, .14);
+      --shadow-lg: 0 16px 48px rgba(9, 41, 71, .20);
+
+      --transition: 220ms cubic-bezier(.4, 0, .2, 1);
+    }
+
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: var(--font-body);
+      color: var(--navy-ink);
+      background: var(--white);
+      -webkit-font-smoothing: antialiased;
+      line-height: 1.5;
+      font-size: 16px;
+    }
+
+    img {
+      max-width: 100%;
+      display: block;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    ul {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    button {
+      font-family: inherit;
+      cursor: pointer;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    p {
+      margin: 0;
+    }
+
+    .container {
+      width: 100%;
+      max-width: var(--container);
+      margin-inline: auto;
+      padding-inline: 20px;
+    }
+
+    /* Skip link (acessibilidade / navegação por teclado) */
+    .skip-link {
+      position: absolute;
+      left: -9999px;
+      top: 0;
+      background: var(--navy-900);
+      color: var(--white);
+      padding: 12px 20px;
+      z-index: 1000;
+      border-radius: 0 0 8px 0;
+    }
+
+    .skip-link:focus {
+      left: 0;
+    }
+
+    :focus-visible {
+      outline: 3px solid var(--gold);
+      outline-offset: 2px;
+    }
+
+    .visually-hidden {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+    }
+
+    /* ---------- Tipografia ---------- */
+    .eyebrow {
+      font-family: var(--font-body);
+      font-weight: 700;
+      font-size: .9rem;
+      letter-spacing: .02em;
+      color: var(--navy-900);
+    }
+
+    .eyebrow--light {
+      color: var(--white);
+    }
+
+    h1,
+    h2,
+    h3 {
+      font-family: var(--font-display);
+      font-weight: 700;
+      letter-spacing: 0;
+      color: var(--navy-ink);
+    }
+
+    h1 {
+      font-size: clamp(1.9rem, 2.8vw, 2.6rem);
+      line-height: 1.2;
+    }
+
+    h2 {
+      font-size: clamp(1.7rem, 3.2vw, 2.4rem);
+      line-height: 1.2;
+    }
+
+    h3 {
+      font-size: 1.2rem;
+      line-height: 1.3;
+    }
+
+    /* Título de texto corrido (Institucional / Ecossistema / FAQ): usa a
+     fonte de corpo (Urbanist) em peso normal, não a display bold. */
+    .text-heading {
+      font-family: var(--font-body);
+      font-weight: 500;
+      font-size: 1.5rem;
+      line-height: 1.4;
+      color: var(--navy-ink);
+    }
+
+    /* Token de texto de corpo do design system: Urbanist Regular 24px.
+     Aplicado nos parágrafos de leitura (institucional, soluções,
+     ecossistema, contato, faq) — não em labels, botões ou textos
+     pequenos de card, que têm sua própria escala. */
+    .body-text {
+      font-family: var(--font-body);
+      font-weight: 400;
+      font-size: 1.5rem;
+      line-height: 1.5;
+      color: var(--gray-700);
+    }
+
+    .lead {
+      font-size: 1.05rem;
+      color: var(--gray-700);
+      line-height: 1.6;
+    }
+
+    /* ---------- Botões ---------- */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      min-height: 44px;
+      padding: 14px 28px;
+      border-radius: var(--radius-full);
+      font-weight: 700;
+      font-size: .95rem;
+      border: 2px solid transparent;
+      transition: transform var(--transition), background var(--transition), color var(--transition), border-color var(--transition), box-shadow var(--transition);
+      white-space: nowrap;
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+    }
+
+    .btn:active {
+      transform: translateY(0);
+    }
+
+    .btn--primary {
+      background: var(--white);
+      color: var(--navy-ink);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .btn--primary:hover {
+      background: var(--gold);
+      color: var(--navy-900);
+      box-shadow: var(--shadow-md);
+    }
+
+    .btn--outline {
+      background: transparent;
+      color: var(--white);
+      border-color: rgba(255, 255, 255, .7);
+    }
+
+    .btn--outline:hover {
+      background: rgba(255, 255, 255, .12);
+      border-color: var(--white);
+    }
+
+    .btn--navy {
+      background: var(--navy-900);
+      color: var(--white);
+    }
+
+    .btn--navy:hover {
+      background: var(--navy-800);
+      box-shadow: var(--shadow-md);
+    }
+
+    .btn--header {
+      min-height: 40px;
+      padding: 10px 22px;
+      font-size: .88rem;
+    }
+
+    .btn-arrow {
+      font-size: 1.1em;
+      transition: transform var(--transition);
+    }
+
+    .btn:hover .btn-arrow {
+      transform: translateX(4px);
+    }
+
+    /* ==========================================================
+     HEADER
+     ========================================================== */
+    .site-header {
+      position: relative;
+      z-index: 100;
+      padding: 32px 40px 0;
+    }
+
+    .site-header__inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--gap-md);
+    }
+
+    .logo-link {
+      display: inline-flex;
+      align-items: center;
+    }
+
+    .logo-link img {
+      height: 36px;
+      width: auto;
+    }
+
+    .nav-toggle {
+      display: none;
+      background: rgba(9, 41, 71, .35);
+      border: 1px solid rgba(255, 255, 255, .5);
+      border-radius: 0;
+      width: 44px;
+      height: 44px;
+      align-items: center;
+      justify-content: center;
+      color: var(--white);
+    }
+
+    .nav-toggle svg {
+      width: 22px;
+      height: 22px;
+    }
+
+    .main-nav__list {
+      display: flex;
+      align-items: center;
+      gap: var(--gap-lg);
+    }
+
+    .main-nav__list a {
+      color: var(--white);
+      font-weight: 600;
+      font-size: .95rem;
+      padding: 8px 2px;
+      position: relative;
+    }
+
+    .main-nav__list a::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width: 0;
+      height: 2px;
+      background: var(--gold);
+      transition: width var(--transition);
+    }
+
+    .main-nav__list a:hover::after,
+    .main-nav__list a:focus-visible::after {
+      width: 100%;
+    }
+
+    .main-nav__cta {
+      display: none;
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .header-actions .btn--primary {
+      background: var(--white);
+      color: var(--navy-ink);
+    }
+
+    .header-actions .btn--primary:hover {
+      background: var(--gold);
+      color: var(--navy-900);
+    }
+
+    .header-actions .btn--outline {
+      background: transparent;
+      color: var(--white);
+      border-color: rgba(255, 255, 255, .8);
+    }
+
+    .header-actions .btn--outline:hover {
+      background: rgba(255, 255, 255, .15);
+      border-color: var(--white);
+    }
+
+    @media (max-width:900px) {
+      .site-header {
+        padding: 24px 24px 0;
+      }
+
+      .main-nav {
+        position: fixed;
+        inset: 0 0 0 auto;
+        width: min(320px, 84vw);
+        height: 100vh;
+        background: var(--navy-900);
+        padding: 96px 28px 28px;
+        transform: translateX(100%);
+        transition: transform var(--transition);
+        z-index: 99;
+      }
+
+      .main-nav.is-open {
+        transform: translateX(0);
+      }
+
+      .main-nav__list {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: var(--gap-md);
+      }
+
+      .main-nav__list a {
+        color: var(--white);
+        font-size: 1.1rem;
+      }
+
+      .main-nav__cta.btn--primary {
+        display: flex;
+        margin-top: var(--gap-lg);
+        width: 100%;
+        text-align: center;
+        color: var(--navy-ink);
+      }
+
+      .nav-toggle {
+        display: inline-flex;
+      }
+
+      .header-actions {
+        display: none;
+      }
+
+      .nav-scrim {
+        position: fixed;
+        inset: 0;
+        background: rgba(9, 20, 35, .5);
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity var(--transition);
+        z-index: 98;
+      }
+
+      .nav-scrim.is-open {
+        opacity: 1;
+        pointer-events: auto;
+      }
+    }
+
+    /* ==========================================================
+     HERO
+     ========================================================== */
+    .hero-wrap {
+      padding: 0;
+      background: var(--white);
+    }
+
+    .hero {
+      position: relative;
+      color: var(--white);
+      overflow: hidden;
+      border-radius: 0;
+      min-height: 880px;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      padding-block: 0;
+      /* sobrescreve o padding-block genérico de <section> — o hero controla o próprio espaçamento interno */
+    }
+
+    .hero__media {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+    }
+
+    .hero__media img,
+    .hero__media video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .hero__media::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(9, 26, 45, .18) 0%, rgba(9, 26, 45, .1) 35%, rgba(9, 26, 45, .62) 100%);
+    }
+
+    .hero__content {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      flex: 1;
+      padding: 40px 56px 56px;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: var(--gap-xl);
+      align-items: end;
+    }
+
+    .hero__text {
+      max-width: 700px;
+    }
+
+    .hero h1 {
+      color: var(--white);
+    }
+
+    .hero__lead {
+      margin-top: var(--gap-md);
+      max-width: 540px;
+      color: rgba(255, 255, 255, .92);
+      font-size: 1rem;
+    }
+
+    .hero__ctas {
+      margin-top: var(--gap-lg);
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    .hero__stats {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 14px;
+    }
+
+    .stat {
+      text-align: center;
+    }
+
+    .stat--glass {
+      background: rgba(255, 255, 255, .16);
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+      border-radius: 0px;
+      padding: 20px 18px;
+    }
+
+    .stat__value {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 1.7rem;
+      display: flex;
+      align-items: baseline;
+      justify-content: center;
+      gap: 2px;
+      white-space: nowrap;
+    }
+
+    .stat__value small {
+      font-size: .55em;
+      font-weight: 600;
+    }
+
+    .stat__value .bracket {
+      display: inline-block;
+      width: .62em;
+      height: .9em;
+      vertical-align: -0.12em;
+      object-fit: contain;
+    }
+
+    .stat__value .bracket--left {
+      margin-right: .15em;
+    }
+
+    .stat__value .bracket--right {
+      margin-left: .15em;
+    }
+
+    .stat__label {
+      margin-top: 6px;
+      font-size: .85rem;
+      color: rgba(255, 255, 255, .85);
+      line-height: 1.3;
+    }
+
+    @media (max-width:900px) {
+      .hero-wrap {
+        padding: 0;
+      }
+
+      .hero {
+        min-height: auto;
+        border-radius: 0;
+      }
+
+      .hero__content {
+        grid-template-columns: 1fr;
+        padding: 32px 24px;
+      }
+    }
+
+    @media (max-width:560px) {
+      .hero__stats {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 24px;
+      }
+
+      .hero__ctas {
+        flex-direction: column;
+      }
+
+      .hero__ctas .btn {
+        width: 100%;
+      }
+    }
+
+    /* ==========================================================
+     SECTION SPACING GENERIC
+     ========================================================== */
+    section {
+      padding-block: var(--gap-2xl);
+    }
+
+    .section-head {
+      max-width: 900px;
+    }
+
+    .section-head .eyebrow {
+      display: block;
+      margin-bottom: 14px;
+    }
+
+    /* ==========================================================
+     INSTITUCIONAL
+     ========================================================== */
+    /* Grid geral: 2 colunas (label/avatares à esquerda, conteúdo à
+     direita) x 2 linhas reais (texto institucional / cards), para que
+     o topo do bloco de avatares fique sempre alinhado ao topo dos
+     cards — cada um é uma célula de grid própria, não algo aninhado
+     dentro de outro layout que possa desalinhar as linhas. */
+    .institucional__layout {
+      display: grid;
+      grid-template-columns: 220px 1fr;
+      grid-template-rows: auto auto;
+      row-gap: 56px;
+      column-gap: var(--gap-xl);
+    }
+
+    .institucional__side {
+      grid-column: 1;
+      grid-row: 1;
+    }
+
+    .institucional__label {
+      padding-top: 6px;
+    }
+
+    /* O bloco de avatares fica na mesma linha de grid que os cards,
+     então seu topo se alinha automaticamente ao topo deles. */
+    .institucional__proof-wrap {
+      grid-column: 1;
+      grid-row: 2;
+      align-self: start;
+    }
+
+    .institucional__grid {
+      grid-column: 2;
+      grid-row: 1;
+      display: grid;
+      grid-template-columns: 430px 430px;
+      gap: var(--gap-xl);
+    }
+
+    .institucional__col {
+      min-height: 232px;
+    }
+
+    .institucional__col p {
+      color: var(--gray-700);
+      font-family: var(--font-body);
+      font-weight: 400;
+      font-size: 1.5rem;
+      line-height: 1.5;
+    }
+
+    .institucional__proof {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 14px;
+    }
+
+    .avatar-stack {
+      display: flex;
+    }
+
+    .avatar-stack img {
+      width: 52px;
+      height: 52px;
+      border-radius: 50%;
+      border: 3px solid var(--white);
+      object-fit: cover;
+      margin-left: -14px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .avatar-stack img:first-child {
+      margin-left: 0;
+    }
+
+    .institucional__proof-text {
+      font-size: 1.05rem;
+      color: var(--navy-ink);
+      font-weight: 500;
+      line-height: 1.3;
+    }
+
+    .highlight-cards {
+      grid-column: 2;
+      grid-row: 2;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--gap-md);
+    }
+
+    .hcard {
+      aspect-ratio: 1 / 1;
+      padding: 28px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hcard--navy {
+      background: var(--navy-900);
+      color: var(--white);
+    }
+
+    .hcard--gray {
+      background: var(--gray-100);
+      color: var(--navy-ink);
+    }
+
+    /* Card 2 (Projetos): texto descritivo no topo, imagem do painel
+     solar ancorada no canto inferior esquerdo, e "Projetos" + "150+"
+     empilhados no canto inferior direito, por cima de tudo. */
+    .hcard--split {
+      justify-content: flex-start;
+    }
+
+    .hcard__body-text {
+      position: relative;
+      z-index: 2;
+      font-size: .9rem;
+      line-height: 1.6;
+      color: var(--gray-600);
+    }
+
+    .hcard__corner-img {
+      position: absolute;
+      left: -14%;
+      bottom: -10%;
+      width: 72%;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    .hcard__value-wrap {
+      position: relative;
+      z-index: 2;
+      margin-top: auto;
+      margin-left: auto;
+      text-align: right;
+    }
+
+    .hcard__value-wrap .eyebrow {
+      display: block;
+    }
+
+    .hcard__value-wrap .hcard__value {
+      margin-top: 2px;
+    }
+
+    /* Card 3 (Frentes de Atuação): foto de fundo cobrindo o card inteiro,
+     com overlay escuro para destacar o texto branco. */
+    .hcard--photo {
+      color: var(--white);
+    }
+
+    .hcard--photo .hcard__bg {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: 0;
+    }
+
+    .hcard--photo::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(9, 26, 45, .45) 0%, rgba(9, 26, 45, .75) 100%);
+      z-index: 1;
+    }
+
+    .hcard__top {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 12px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .hcard__top .eyebrow {
+      font-size: .78rem;
+    }
+
+    .hcard--navy .eyebrow,
+    .hcard--photo .eyebrow {
+      color: rgba(255, 255, 255, .9);
+    }
+
+    /* Posicionado absoluto para poder crescer sem empurrar o label ao lado. */
+    .hcard__icon {
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 52px;
+      height: 52px;
+      flex-shrink: 0;
+      opacity: .9;
+      z-index: 2;
+    }
+
+    .hcard__icon img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+
+    .hcard__value {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 2.1rem;
+      position: relative;
+      z-index: 2;
+    }
+
+    .hcard__value.is-mid {
+      margin-top: auto;
+      margin-left: auto;
+      text-align: right;
+      position: relative;
+      z-index: 2;
+    }
+
+    .hcard__body {
+      position: relative;
+      z-index: 2;
+      margin-top: auto;
+    }
+
+    .hcard__body p {
+      font-size: .9rem;
+      line-height: 1.6;
+      margin-top: 6px;
+    }
+
+    .hcard--gray .hcard__body p {
+      color: var(--gray-600);
+    }
+
+    .hcard--navy .hcard__body p,
+    .hcard--photo .hcard__body p {
+      color: rgba(255, 255, 255, .88);
+    }
+
+    @media (max-width:900px) {
+      .institucional__layout {
+        grid-template-columns: 1fr;
+        grid-template-rows: auto;
+        gap: var(--gap-md);
+      }
+
+      .institucional__side {
+        grid-column: 1;
+        grid-row: auto;
+      }
+
+      .institucional__proof-wrap {
+        grid-column: 1;
+        grid-row: auto;
+      }
+
+      .institucional__grid {
+        grid-column: 1;
+        grid-row: auto;
+        grid-template-columns: 1fr;
+        gap: var(--gap-lg);
+      }
+
+      .highlight-cards {
+        grid-column: 1;
+        grid-row: auto;
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* Entre o mobile e a largura que comporta as duas colunas fixas de
+     430px do design, o texto vira uma coluna só de largura fluida. */
+    @media (min-width:901px) and (max-width:1260px) {
+      .institucional__grid {
+        grid-template-columns: 1fr;
+        max-width: 430px;
+      }
+    }
+
+    @media (min-width:901px) and (max-width:1100px) {
+      .institucional__layout {
+        grid-template-columns: 180px 1fr;
+      }
+    }
+
+    /* ---------- Carrossel de imagens (faixa) ---------- */
+    .strip {
+      margin-top: var(--gap-2xl);
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 4px;
+    }
+
+    .strip img {
+      width: 100%;
+      height: 230px;
+      object-fit: cover;
+    }
+
+    @media (max-width:900px) {
+      .strip {
+        grid-template-columns: repeat(3, 1fr);
+      }
+
+      .strip li:nth-child(n+4) {
+        display: none;
+      }
+    }
+
+    @media (max-width:560px) {
+      .strip {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .strip img {
+        height: 150px;
+      }
+    }
+
+    /* ==========================================================
+     SERVIÇOS
+     ========================================================== */
+    .servicos {
+      background: var(--gray-100);
+    }
+
+    .servicos__head {
+      display: grid;
+      grid-template-columns: 220px 1fr;
+      gap: var(--gap-xl);
+      align-items: start;
+    }
+
+    .servicos__head p,
+    .servicos__head h2 {
+      color: var(--gray-700);
+      font-family: var(--font-body);
+      font-weight: 400;
+      font-size: 1.5rem;
+      line-height: 1.5;
+    }
+
+    @media (max-width:900px) {
+      .servicos__head {
+        grid-template-columns: 1fr;
+        gap: var(--gap-md);
+      }
+    }
+
+    .service-cards {
+      margin-top: var(--gap-xl);
+      display: flex;
+      gap: 14px;
+      align-items: stretch;
+    }
+
+    .service-card {
+      position: relative;
+      flex: 1;
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      background: var(--white);
+      box-shadow: var(--shadow-sm);
+      transition: flex 600ms cubic-bezier(.25, .1, .25, 1);
+    }
+
+    .service-card__media {
+      position: relative;
+      height: 340px;
+      overflow: hidden;
+      transition: height 600ms cubic-bezier(.25, .1, .25, 1);
+    }
+
+    .service-card--active .service-card__media {
+      height: 100%;
+    }
+
+    .service-card__media img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 600ms cubic-bezier(.25, .1, .25, 1);
+    }
+
+    .service-card:hover .service-card__media img,
+    .service-card:focus-within .service-card__media img {
+      transform: scale(1.03);
+    }
+
+    .service-card__overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(9, 26, 45, 0) 45%, rgba(9, 26, 45, .85) 100%);
+      opacity: 0;
+      transition: opacity 500ms cubic-bezier(.25, .1, .25, 1);
+      display: flex;
+      align-items: flex-end;
+      padding: 24px;
+      color: var(--white);
+    }
+
+    .service-card__body {
+      padding: 20px;
+    }
+
+    .service-card__num {
+      font-family: var(--font-display);
+      font-weight: 700;
+      color: var(--navy-900);
+      font-size: 1.4rem;
+    }
+
+    .service-card__title {
+      margin-top: 6px;
+      font-weight: 700;
+      font-size: 1.02rem;
+      color: var(--navy-ink);
+    }
+
+    .service-card__text {
+      margin-top: 10px;
+      font-size: .88rem;
+      color: rgba(255, 255, 255, .92);
+      line-height: 1.5;
+      max-height: 0;
+      overflow: hidden;
+      opacity: 0;
+      transition: max-height 600ms cubic-bezier(.25, .1, .25, 1), opacity 500ms cubic-bezier(.25, .1, .25, 1) 80ms;
+    }
+
+    .service-card--active {
+      flex: 2.6;
+    }
+
+    .service-card--active .service-card__overlay {
+      opacity: 1;
+    }
+
+    .service-card--active .service-card__body {
+      display: none;
+    }
+
+    .service-card--active .service-card__text {
+      max-height: 140px;
+      opacity: 1;
+    }
+
+    .service-card__overlay .service-card__num {
+      color: var(--white);
+    }
+
+    .service-card__overlay .service-card__title {
+      color: var(--white);
+      font-size: 1.15rem;
+    }
+
+    @media (max-width:900px) {
+      .service-cards {
+        flex-direction: column;
+      }
+
+      .service-card {
+        flex: none !important;
+        display: block;
+      }
+
+      .service-card__media {
+        position: relative;
+        height: 220px;
+        overflow: hidden;
+      }
+
+      .service-card__media img {
+        width: 100%;
+        height: 220px;
+        object-fit: cover;
+      }
+
+      .service-card__overlay {
+        display: none !important;
+      }
+
+      .service-card__body {
+        display: block !important;
+        padding: 16px 20px 20px;
+      }
+
+      .service-card__body .service-card__num {
+        color: var(--navy-900);
+      }
+
+      .service-card__body .service-card__title {
+        color: var(--navy-ink);
+        font-size: 1.1rem;
+      }
+
+      .service-card__body .service-card__text {
+        display: block;
+        margin-top: 10px;
+        font-size: .92rem;
+        color: var(--gray-600);
+        line-height: 1.6;
+        max-height: none;
+        overflow: visible;
+        opacity: 1;
+      }
+    }
+
+    /* ==========================================================
+     ECOSSISTEMA
+     ========================================================== */
+    .ecossistema__grid {
+      display: grid;
+      grid-template-columns: 280px 1fr;
+      gap: var(--gap-xl);
+      margin-top: var(--gap-lg);
+      align-items: start;
+    }
+
+    .ecossistema__intro p,
+    .ecossistema__intro h2 {
+      color: var(--gray-700);
+      font-family: var(--font-body);
+      font-weight: 400;
+      font-size: 1.5rem;
+      line-height: 1.5;
+    }
+
+    .eco-list {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .eco-item {
+      background: var(--gray-100);
+      padding: 32px;
+      display: grid;
+      grid-template-columns: auto 1fr auto;
+      gap: 24px;
+      align-items: start;
+      transition: background var(--transition);
+      position: sticky;
+      box-shadow: 0 -12px 24px -18px rgba(9, 26, 45, .08);
+    }
+
+    .eco-item:hover {
+      background: #E6E7EA;
+    }
+
+    /* Efeito "stacking cards": cada item gruda a uma altura levemente maior
+     que o anterior, então o próximo card sobe por cima ao scrollar. O
+     espaçamento entre os valores de --stick-top cria a folga visível no
+     topo antes de cada card colar; o de baixo, por vir depois no DOM,
+     sobrepõe naturalmente o de cima. */
+    .eco-item:nth-child(1) {
+      top: 24px;
+      z-index: 1;
+    }
+
+    .eco-item:nth-child(2) {
+      top: 44px;
+      z-index: 2;
+    }
+
+    .eco-item:nth-child(3) {
+      top: 64px;
+      z-index: 3;
+    }
+
+    .eco-item:nth-child(4) {
+      top: 84px;
+      z-index: 4;
+    }
+
+    .eco-item__icon {
+      width: 34px;
+      height: 34px;
+      grid-row: 1 / 3;
+    }
+
+    .eco-item__icon img {
+      width: 100%;
+      height: 100%;
+    }
+
+    .eco-item__cat {
+      grid-column: 3;
+      grid-row: 1;
+      color: var(--navy-900);
+      font-weight: 600;
+      font-size: 1rem;
+    }
+
+    .eco-item__title {
+      grid-column: 2 / 4;
+      grid-row: 2;
+      margin-top: 4px;
+    }
+
+    .eco-item__text {
+      grid-column: 2 / 4;
+      grid-row: 3;
+      color: var(--gray-600);
+      font-size: .95rem;
+      line-height: 1.55;
+      max-width: 640px;
+    }
+
+    @media (max-width:900px) {
+      .ecossistema__grid {
+        grid-template-columns: 1fr;
+        gap: var(--gap-md);
+      }
+
+      .eco-item {
+        grid-template-columns: auto 1fr;
+        padding: 24px;
+        gap: 14px 16px;
+      }
+
+      .eco-item__icon {
+        grid-row: 1;
+      }
+
+      .eco-item__cat {
+        grid-column: 2;
+        grid-row: 1;
+      }
+
+      .eco-item__title {
+        grid-column: 1 / 3;
+        grid-row: 2;
+      }
+
+      .eco-item__text {
+        grid-column: 1 / 3;
+        grid-row: 3;
+      }
+    }
+
+    /* ==========================================================
+     CONTATO
+     ========================================================== */
+    .contato {
+      background: linear-gradient(180deg, var(--navy-700) 0%, #556997 100%);
+      color: var(--white);
+      position: relative;
+      overflow: hidden;
+      padding-bottom: calc(var(--gap-2xl) + 40px);
+    }
+
+    .contato__grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--gap-xl);
+      align-items: start;
+    }
+
+    .contato__info .logo-link img {
+      height: 58px;
+    }
+
+    .contato__info {
+      padding-top: 8px;
+    }
+
+    .contato__desc {
+      margin-top: var(--gap-lg);
+      color: rgba(255, 255, 255, .85);
+      max-width: 380px;
+    }
+
+    .contato__list {
+      margin-top: var(--gap-lg);
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .contato__list a,
+    .contato__list span {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      font-size: 1.05rem;
+      color: var(--white);
+    }
+
+    .contato__list .icon {
+      width: 22px;
+      height: 22px;
+      color: var(--gold);
+      flex-shrink: 0;
+    }
+
+    .contato__photo {
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width: clamp(380px, 42vw, 760px);
+      line-height: 0;
+      pointer-events: none;
+    }
+
+    .contato__photo img {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+
+    .contact-form-wrap {
+      position: relative;
+    }
+
+    .contact-form-wrap::before {
+      content: "";
+      position: absolute;
+      top: 14px;
+      left: 14px;
+      width: 100%;
+      height: 100%;
+      background: rgba(255, 255, 255, .25);
+      z-index: 0;
+    }
+
+    .contact-form {
+      position: relative;
+      z-index: 1;
+      background: var(--gray-100);
+      color: var(--navy-ink);
+      padding: var(--gap-lg);
+      box-shadow: var(--shadow-lg);
+    }
+
+    .contact-form h3 {
+      font-size: 1.4rem;
+    }
+
+    .contact-form__intro {
+      margin-top: 10px;
+      color: var(--gray-600);
+      font-size: .92rem;
+      line-height: 1.55;
+    }
+
+    .form-row {
+      margin-top: var(--gap-md);
+    }
+
+    .form-row label {
+      display: block;
+      font-weight: 600;
+      font-size: .9rem;
+      margin-bottom: 8px;
+      color: var(--navy-ink);
+    }
+
+    .form-row input,
+    .form-row textarea {
+      width: 100%;
+      border: 1px solid #D7D9DD;
+      background: var(--white);
+      border-radius: 0;
+      padding: 13px 16px;
+      font-family: inherit;
+      font-size: .95rem;
+      color: var(--navy-ink);
+      min-height: 44px;
+      transition: border-color var(--transition), box-shadow var(--transition);
+    }
+
+    .form-row textarea {
+      min-height: 120px;
+      resize: vertical;
+    }
+
+    .form-row input:focus,
+    .form-row textarea:focus {
+      border-color: var(--navy-900);
+      box-shadow: 0 0 0 3px rgba(9, 41, 71, .15);
+      outline: none;
+    }
+
+    .contact-form .btn {
+      margin-top: var(--gap-md);
+      width: 100%;
+    }
+
+    @media (max-width:900px) {
+      .contato {
+        padding-bottom: calc(var(--gap-xl) + min(230px, 50vw));
+      }
+
+      .contato__grid {
+        grid-template-columns: 1fr;
+        gap: var(--gap-lg);
+      }
+
+      .contato__photo {
+        width: min(440px, 95%);
+      }
+    }
+
+    /* ==========================================================
+     FAQ
+     ========================================================== */
+    .faq__grid {
+      display: grid;
+      grid-template-columns: 280px 1fr;
+      gap: var(--gap-xl);
+      margin-top: var(--gap-lg);
+      align-items: start;
+    }
+
+    .faq__grid h2 {
+      color: var(--gray-700);
+      font-family: var(--font-body);
+      font-weight: 400;
+      font-size: 1.5rem;
+      line-height: 1.5;
+    }
+
+    .faq-list {
+      border-top: 1px solid #DEE0E3;
+    }
+
+    .faq-item {
+      border-bottom: 1px solid #DEE0E3;
+    }
+
+    .faq-item__q {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      background: none;
+      border: 0;
+      text-align: left;
+      padding: 26px 4px;
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 1.1rem;
+      color: var(--navy-ink);
+    }
+
+    .faq-item__chevron {
+      flex-shrink: 0;
+      width: 22px;
+      height: 22px;
+      color: var(--navy-900);
+      transition: transform 350ms cubic-bezier(.25, .1, .25, 1);
+    }
+
+    .faq-item[open] .faq-item__chevron {
+      transform: rotate(180deg);
+    }
+
+    .faq-item.faq-item--animating {
+      overflow: hidden;
+    }
+
+    .faq-item__a {
+      padding: 0 4px 26px;
+      color: var(--gray-600);
+      font-size: .98rem;
+      line-height: 1.6;
+      max-width: 900px;
+    }
+
+    .faq-item__q::-webkit-details-marker {
+      display: none;
+    }
+
+    .faq-item summary {
+      list-style: none;
+      cursor: pointer;
+    }
+
+    @media (max-width:900px) {
+      .faq__grid {
+        grid-template-columns: 1fr;
+        gap: var(--gap-md);
+      }
+    }
+
+    /* ==========================================================
+     CTA FINAL
+     ========================================================== */
+    .cta-final {
+      position: relative;
+      color: var(--white);
+      overflow: hidden;
+      min-height: 560px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+    }
+
+    .cta-final__media {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+    }
+
+    .cta-final__media img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .cta-final__media::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: rgba(9, 26, 45, .38);
+    }
+
+    .cta-final__content {
+      position: relative;
+      z-index: 1;
+      max-width: 640px;
+      margin-inline: auto;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .cta-final h2 {
+      color: var(--white);
+    }
+
+    .cta-final .btn {
+      margin-top: var(--gap-lg);
+    }
+
+    .cta-final .btn--primary {
+      color: var(--navy-ink);
+    }
+
+    /* ==========================================================
+     FOOTER
+     ========================================================== */
+    .site-footer {
+      background: var(--navy-900);
+      color: var(--white);
+    }
+
+    .site-footer__top {
+      padding-block: var(--gap-2xl);
+      display: grid;
+      grid-template-columns: 1.4fr 1fr 1fr;
+      gap: var(--gap-xl);
+    }
+
+    .footer-brand .logo-link img {
+      height: 40px;
+    }
+
+    .footer-brand p {
+      margin-top: var(--gap-md);
+      color: rgba(255, 255, 255, .75);
+      max-width: 340px;
+      font-size: .95rem;
+    }
+
+    .footer-col h4 {
+      font-family: var(--font-display);
+      font-size: 1.15rem;
+      font-weight: 700;
+      margin-bottom: var(--gap-md);
+    }
+
+    .footer-col ul {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .footer-col a {
+      color: rgba(255, 255, 255, .8);
+      font-size: .95rem;
+      transition: color var(--transition);
+    }
+
+    .footer-col a:hover {
+      color: var(--gold);
+    }
+
+    .footer-col .contact-line {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: rgba(255, 255, 255, .85);
+      font-size: .95rem;
+    }
+
+    .footer-col .icon {
+      width: 18px;
+      height: 18px;
+      color: var(--gold);
+      flex-shrink: 0;
+    }
+
+    .site-footer__bottom {
+      border-top: 1px solid rgba(255, 255, 255, .12);
+      padding-block: 22px;
+      text-align: center;
+      font-size: .85rem;
+      color: rgba(255, 255, 255, .6);
+    }
+
+    @media (max-width:900px) {
+      .site-footer__top {
+        grid-template-columns: 1fr;
+        gap: var(--gap-lg);
+      }
+    }
+
+    /* Reveal animation (sutil, respeita prefers-reduced-motion) */
+    .reveal {
+      opacity: 0;
+      transform: translateY(18px);
+      transition: opacity 600ms ease, transform 600ms ease;
+    }
+
+    .reveal.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html {
+        scroll-behavior: auto;
+      }
+
+      .reveal {
+        opacity: 1;
+        transform: none;
+        transition: none;
+      }
+
+      * {
+        animation-duration: .01ms !important;
+        transition-duration: .01ms !important;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <a class="skip-link" href="#main-content">Pular para o conteúdo principal</a>
+
+  <main id="main-content">
+
+    <!-- ==========================================================
+       HERO (o header vive dentro do card do hero)
+       ========================================================== -->
+    <div class="hero-wrap">
+      <section class="hero" id="topo" aria-label="Apresentação">
+        <div class="hero__media">
+          <video autoplay muted loop playsinline poster="Hero/1.jpg"
+            aria-label="Vídeo institucional em loop mostrando painéis solares fotovoltaicos instalados em grande escala">
+            <source src="Hero/VSL.mp4" type="video/mp4">
+          </video>
+        </div>
+
+        <header class="site-header">
+          <div class="site-header__inner">
+            <a href="#topo" class="logo-link" aria-label="Cristal Energy Power Generation — página inicial">
+              <img src="Logo/Group 1.svg" alt="Cristal Energy Power Generation" loading="lazy" width="219" height="45">
+            </a>
+
+            <button class="nav-toggle" id="navToggle" aria-expanded="false" aria-controls="mainNav"
+              aria-label="Abrir menu de navegação">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+                <line x1="3" y1="6" x2="21" y2="6" />
+                <line x1="3" y1="12" x2="21" y2="12" />
+                <line x1="3" y1="18" x2="21" y2="18" />
+              </svg>
+            </button>
+
+            <nav class="main-nav" id="mainNav" aria-label="Navegação principal">
+              <ul class="main-nav__list">
+                <li><a href="#institucional">Institucional</a></li>
+                <li><a href="#solucoes">Soluções</a></li>
+                <li><a href="#ecossistema">Ecossistema</a></li>
+                <li><a href="#contato">Contato</a></li>
+                <li><a href="#contato" class="btn btn--primary main-nav__cta">Contato</a></li>
+              </ul>
+            </nav>
+
+            <div class="header-actions">
+              <a href="#contato" class="btn btn--header btn--primary">Contato</a>
+              <a href="#solucoes" class="btn btn--header btn--outline">Soluções</a>
+            </div>
+          </div>
+          <div class="nav-scrim" id="navScrim"></div>
+        </header>
+
+        <div class="hero__content">
+          <div class="hero__text">
+            <h1>Energia solar inteligente para empresas, grandes operações e para o futuro do seu negócio.</h1>
+            <p class="hero__lead">Soluções em energia desenvolvidas para diferentes perfis de operação, combinando
+              tecnologia, estratégia e eficiência para transformar a forma como sua empresa utiliza energia.</p>
+            <div class="hero__ctas">
+              <a href="#contato" class="btn btn--primary">Fale com um especialista! <span class="btn-arrow"
+                  aria-hidden="true">→</span></a>
+              <a href="#solucoes" class="btn btn--outline">Conheça nossas soluções!</a>
+            </div>
+          </div>
+
+          <div class="hero__stats" role="group" aria-label="Indicadores da Cristal Energy Power Generation">
+            <div class="stat stat--glass">
+              <p class="stat__value">90<small>%</small></p>
+              <p class="stat__label">De economia gerada</p>
+            </div>
+            <div class="stat stat--glass">
+              <p class="stat__value">+120</p>
+              <p class="stat__label">Clientes impactados</p>
+            </div>
+            <div class="stat">
+              <p class="stat__value"><img class="bracket bracket--left" src="Hero/folha esquerda.svg" alt=""
+                  loading="lazy"> 100% <img class="bracket bracket--right" src="Hero/folha direita.svg" alt=""
+                  loading="lazy"></p>
+              <p class="stat__label">Soluções pensadas para cada operação</p>
+            </div>
+            <div class="stat">
+              <p class="stat__value"><img class="bracket bracket--left" src="Hero/folha esquerda.svg" alt=""
+                  loading="lazy"> 360° <img class="bracket bracket--right" src="Hero/folha direita.svg" alt=""
+                  loading="lazy"></p>
+              <p class="stat__label">Visão estratégica do negócio</p>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- ==========================================================
+       INSTITUCIONAL
+       ========================================================== -->
+    <section id="institucional" aria-labelledby="institucional-title">
+      <div class="container">
+        <div class="institucional__layout">
+          <div class="institucional__side reveal">
+            <div class="institucional__label">
+              <span class="eyebrow">Institucional</span>
+            </div>
+          </div>
+
+          <div class="institucional__proof-wrap reveal">
+            <div class="institucional__proof">
+              <div class="avatar-stack" role="img"
+                aria-label="Fotos de quatro clientes atendidos pela Cristal Energy Power Generation">
+                <img src="Institucional/2.png" alt="" loading="lazy" width="112" height="112">
+                <img src="Institucional/3.png" alt="" loading="lazy" width="112" height="112">
+                <img src="Institucional/4.png" alt="" loading="lazy" width="112" height="112">
+                <img src="Institucional/5.png" alt="" loading="lazy" width="112" height="112">
+              </div>
+              <p class="institucional__proof-text">+100 Clientes<br>Atendidos</p>
+            </div>
+          </div>
+
+          <div class="institucional__grid reveal">
+            <div class="institucional__col">
+              <h2 id="institucional-title" class="visually-hidden">Institucional</h2>
+              <p>A Cristal Energy Power Generation atua para transformar desafios energéticos em oportunidades para
+                empresas, produtores e grandes operações.</p>
+              <p style="margin-top:18px;">Unimos visão estratégica, soluções personalizadas e tecnologia para
+                desenvolver projetos alinhados às necessidades de cada negócio.</p>
+            </div>
+            <div class="institucional__col">
+              <p>Combinamos tecnologia, planejamento técnico e visão de negócio para transformar desafios de energia em
+                soluções eficientes, preparando cada operação para crescer com mais economia e segurança operacional a
+                longo prazo.</p>
+            </div>
+          </div>
+
+          <div class="highlight-cards reveal">
+            <article class="hcard hcard--navy">
+              <div class="hcard__top">
+                <span class="eyebrow eyebrow--light">Anos de Mercado</span>
+                <span class="hcard__icon" aria-hidden="true"><img src="Institucional/Vector.svg" alt=""
+                    loading="lazy"></span>
+              </div>
+              <p class="hcard__value">12+</p>
+              <div class="hcard__body">
+                <p>A Cristal EPG desenvolve soluções com visão consultiva, engenharia aplicada e capacidade de entrega
+                  para agronegócio, empresas, integradores e parceiros estratégicos.</p>
+              </div>
+            </article>
+
+            <article class="hcard hcard--gray hcard--split">
+              <p class="hcard__body-text">Atuação em diferentes demandas energéticas, do planejamento à implementação de
+                soluções.</p>
+              <img class="hcard__corner-img" src="Institucional/1.png" alt="" loading="lazy" aria-hidden="true">
+              <div class="hcard__value-wrap is-mid">
+                <span class="eyebrow">Projetos</span>
+                <p class="hcard__value">150+</p>
+              </div>
+            </article>
+
+            <article class="hcard hcard--photo">
+              <img class="hcard__bg" src="Institucional/imagem-card.png" alt="" loading="lazy" aria-hidden="true">
+              <div class="hcard__top">
+                <span class="eyebrow">Frentes de Atuação</span>
+              </div>
+              <p class="hcard__value">12+</p>
+              <div class="hcard__body">
+                <p>Um portfólio integrado para atender empresas, agronegócio e operações de diferentes escalas.</p>
+              </div>
+            </article>
+          </div>
+        </div>
+      </div>
+
+      <!-- Faixa de imagens / projetos (seção visual, sem copy adicional) -->
+      <div class="container" id="projetos" aria-label="Galeria de projetos Cristal Energy Power Generation">
+        <ul class="strip reveal">
+          <li><img src="Carrossel/1.png" alt="Equipe técnica realizando manutenção em painéis solares" loading="lazy"
+              width="600" height="600"></li>
+          <li><img src="Carrossel/2.png" alt="Vista aérea de painéis solares integrados à vegetação natural"
+              loading="lazy" width="600" height="600"></li>
+          <li><img src="Carrossel/3.png" alt="Extensa usina solar fotovoltaica em operação" loading="lazy" width="600"
+              height="600"></li>
+          <li><img src="Carrossel/4.png" alt="Equipe da Cristal Energy Power Generation em campo de energia solar"
+              loading="lazy" width="600" height="600"></li>
+          <li><img src="Carrossel/5.png" alt="Tecnologia aplicada ao agronegócio com monitoramento inteligente"
+              loading="lazy" width="600" height="600"></li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ==========================================================
+       SOLUÇÕES / SERVIÇOS
+       ========================================================== -->
+    <section class="servicos" id="solucoes" aria-labelledby="solucoes-title">
+      <div class="container">
+        <div class="servicos__head reveal">
+          <span class="eyebrow">Soluções</span>
+          <div>
+            <h2 id="solucoes-title">Do mercado livre à geração distribuída, soluções que conectam estratégia, tecnologia
+              e operação em uma mesma jornada energética.</h2>
+            <p style="margin-top:16px;">Da geração ao mercado livre, da infraestrutura aos projetos complexos, a Cristal
+              Energy Power Generation conecta diferentes possibilidades para construir soluções energéticas alinhadas às
+              necessidades de cada negócio.</p>
+          </div>
+        </div>
+
+        <ul class="service-cards reveal">
+          <li class="service-card" data-service-card>
+            <div class="service-card__media">
+              <img src="Serviços/1.png"
+                alt="Painéis solares instalados em telhado residencial ao pôr do sol, com turbinas eólicas ao fundo"
+                loading="lazy" width="800" height="800">
+              <div class="service-card__overlay">
+                <div>
+                  <p class="service-card__num">1.</p>
+                  <p class="service-card__title">Assinatura de energia</p>
+                  <p class="service-card__text">Modelo orientado a comércios, pequenas empresas e integradores que
+                    buscam praticidade, flexibilidade e uma solução energética alinhada ao seu negócio.</p>
+                </div>
+              </div>
+            </div>
+            <div class="service-card__body">
+              <p class="service-card__num">1.</p>
+              <p class="service-card__title">Assinatura de energia</p>
+              <p class="service-card__text">Modelo orientado a comércios, pequenas empresas e integradores que
+                buscam praticidade, flexibilidade e uma solução energética alinhada ao seu negócio.</p>
+            </div>
+          </li>
+
+          <li class="service-card service-card--active" data-service-card>
+            <div class="service-card__media">
+              <img src="Serviços/2.png" alt="Técnico em painel solar fazendo sinal de positivo, segurando tablet"
+                loading="lazy" width="800" height="800">
+              <div class="service-card__overlay">
+                <div>
+                  <p class="service-card__num">2.</p>
+                  <p class="service-card__title">Mercado livre de energia</p>
+                  <p class="service-card__text">Estratégias para empresas que desejam otimizar seus custos, ampliar a
+                    previsibilidade e tomar decisões mais inteligentes sobre a contratação de energia.</p>
+                </div>
+              </div>
+            </div>
+            <div class="service-card__body">
+              <p class="service-card__num">2.</p>
+              <p class="service-card__title">Mercado livre de energia</p>
+              <p class="service-card__text">Estratégias para empresas que desejam otimizar seus custos, ampliar a
+                previsibilidade e tomar decisões mais inteligentes sobre a contratação de energia.</p>
+            </div>
+          </li>
+
+          <li class="service-card" data-service-card>
+            <div class="service-card__media">
+              <img src="Serviços/3.png" alt="Extensa usina solar fotovoltaica entre montanhas" loading="lazy"
+                width="800" height="800">
+              <div class="service-card__overlay">
+                <div>
+                  <p class="service-card__num">3.</p>
+                  <p class="service-card__title">BOT e leasing operacional</p>
+                  <p class="service-card__text">Estruturas pensadas para grandes operações que buscam acesso à
+                    infraestrutura energética com modelos financeiros alinhados à realidade de cada negócio.</p>
+                </div>
+              </div>
+            </div>
+            <div class="service-card__body">
+              <p class="service-card__num">3.</p>
+              <p class="service-card__title">BOT e leasing operacional</p>
+              <p class="service-card__text">Estruturas pensadas para grandes operações que buscam acesso à
+                infraestrutura energética com modelos financeiros alinhados à realidade de cada negócio.</p>
+            </div>
+          </li>
+
+          <li class="service-card" data-service-card>
+            <div class="service-card__media">
+              <img src="Serviços/4.png" alt="Trator agrícola operando em plantação ao entardecer" loading="lazy"
+                width="800" height="800">
+              <div class="service-card__overlay">
+                <div>
+                  <p class="service-card__num">4.</p>
+                  <p class="service-card__title">Energia para o agronegócio</p>
+                  <p class="service-card__text">Soluções para irrigação, BESS, microrredes e produção rural que exigem
+                    eficiência, continuidade operacional e capacidade para acompanhar o crescimento.</p>
+                </div>
+              </div>
+            </div>
+            <div class="service-card__body">
+              <p class="service-card__num">4.</p>
+              <p class="service-card__title">Energia para o agronegócio</p>
+              <p class="service-card__text">Soluções para irrigação, BESS, microrredes e produção rural que exigem
+                eficiência, continuidade operacional e capacidade para acompanhar o crescimento.</p>
+            </div>
+          </li>
+
+          <li class="service-card" data-service-card>
+            <div class="service-card__media">
+              <img src="Serviços/5.png"
+                alt="Painéis solares com representação digital de inteligência artificial sobreposta" loading="lazy"
+                width="800" height="800">
+              <div class="service-card__overlay">
+                <div>
+                  <p class="service-card__num">5.</p>
+                  <p class="service-card__title">Integradores e parceiros</p>
+                  <p class="service-card__text">Suporte a integradores, parceiros comerciais e clientes finais,
+                    conectando conhecimento, estrutura e colaboração ao longo de toda a jornada.</p>
+                </div>
+              </div>
+            </div>
+            <div class="service-card__body">
+              <p class="service-card__num">5.</p>
+              <p class="service-card__title">Integradores e parceiros</p>
+              <p class="service-card__text">Suporte a integradores, parceiros comerciais e clientes finais,
+                conectando conhecimento, estrutura e colaboração ao longo de toda a jornada.</p>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ==========================================================
+       ECOSSISTEMA
+       ========================================================== -->
+    <section id="ecossistema" aria-labelledby="ecossistema-title">
+      <div class="container">
+        <span class="eyebrow reveal">Ecossistema</span>
+        <div class="ecossistema__grid">
+          <div class="ecossistema__intro reveal">
+            <h2 id="ecossistema-title" class="text-heading">Um ecossistema de soluções energéticas para diferentes
+              desafios, operações e possibilidades de crescimento.</h2>
+            <p style="margin-top:18px;">A Cristal Energy Power Generation conecta diferentes soluções e modelos de
+              atuação para atender operações que precisam de mais eficiência, previsibilidade e inteligência energética.
+            </p>
+          </div>
+
+          <ul class="eco-list reveal">
+            <li class="eco-item">
+              <span class="eco-item__icon" aria-hidden="true"><img src="Ecossistema/engenharia.svg" alt=""
+                  loading="lazy"></span>
+              <span class="eco-item__cat">Engenharia</span>
+              <h3 class="eco-item__title">Engenharia que transforma desafios</h3>
+              <p class="eco-item__text">Projetamos soluções energéticas com visão técnica e estratégica, considerando as
+                necessidades e particularidades de cada operação.</p>
+            </li>
+            <li class="eco-item">
+              <span class="eco-item__icon" aria-hidden="true"><img src="Ecossistema/tecnologia.svg" alt=""
+                  loading="lazy"></span>
+              <span class="eco-item__cat">Tecnologia</span>
+              <h3 class="eco-item__title">Soluções que acompanham o negócio</h3>
+              <p class="eco-item__text">Integramos geração, armazenamento e inteligência para criar operações mais
+                eficientes, flexíveis e preparadas para novos desafios.</p>
+            </li>
+            <li class="eco-item">
+              <span class="eco-item__icon" aria-hidden="true"><img src="Ecossistema/inteligência.svg" alt=""
+                  loading="lazy"></span>
+              <span class="eco-item__cat">Inteligência</span>
+              <h3 class="eco-item__title">Inteligência para decidir melhor</h3>
+              <p class="eco-item__text">Conectamos dados, tecnologia e conhecimento de mercado para apoiar decisões mais
+                eficientes e estratégicas em energia.</p>
+            </li>
+            <li class="eco-item">
+              <span class="eco-item__icon" aria-hidden="true"><img src="Ecossistema/Vector-1.svg" alt=""
+                  loading="lazy"></span>
+              <span class="eco-item__cat">Sustentabilidade</span>
+              <h3 class="eco-item__title">Energia pensada para o futuro</h3>
+              <p class="eco-item__text">Desenvolvemos projetos com uma visão de longo prazo, buscando mais eficiência,
+                sustentabilidade e capacidade de adaptação.</p>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================
+       CONTATO
+       ========================================================== -->
+    <section class="contato" id="contato" aria-labelledby="contato-title">
+      <div class="container contato__grid">
+        <div class="contato__info reveal">
+          <span class="eyebrow eyebrow--light">Contato</span>
+          <div style="margin-top:24px;">
+            <a href="#topo" class="logo-link" aria-label="Cristal Energy Power Generation">
+              <img src="Logo/Group 2.svg" alt="Cristal Energy Power Generation" loading="lazy" width="219" height="45">
+            </a>
+          </div>
+
+          <ul class="contato__list">
+            <li>
+              <a href="mailto:contato@cristalepg.com.br">
+                <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+                  aria-hidden="true">
+                  <rect x="2" y="4" width="20" height="16" rx="2" />
+                  <path d="M2 7l10 6 10-6" />
+                </svg>
+                contato@cristalepg.com.br.
+              </a>
+            </li>
+            <li>
+              <a href="https://instagram.com/cristalepg" target="_blank" rel="noopener noreferrer"
+                aria-label="Instagram da Cristal Energy Power Generation, abre em nova aba">
+                <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+                  aria-hidden="true">
+                  <rect x="3" y="3" width="18" height="18" rx="5" />
+                  <circle cx="12" cy="12" r="4" />
+                  <circle cx="17.5" cy="6.5" r="1" />
+                </svg>
+                @cristalepg
+              </a>
+            </li>
+            <li>
+              <a href="tel:+5519999999999">
+                <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+                  aria-hidden="true">
+                  <path
+                    d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.362 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.338 1.85.573 2.81.7A2 2 0 0 1 22 16.92z" />
+                </svg>
+                +55 (19) 9999-99999
+              </a>
+            </li>
+          </ul>
+        </div>
+
+        <div class="reveal contact-form-wrap">
+          <form class="contact-form" id="contactForm" novalidate>
+            <h3 id="contato-title">Envie uma mensagem para nossa equipe</h3>
+            <p class="contact-form__intro">Use o formulário abaixo para iniciar uma conversa comercial ou institucional.
+              Ao enviar, abrimos seu aplicativo de e-mail com a mensagem pronta para contato@cristalepg.com.br.</p>
+
+            <div class="form-row">
+              <label for="field-nome">Nome</label>
+              <input type="text" id="field-nome" name="nome" placeholder="Insira seu nome" autocomplete="name" required>
+            </div>
+            <div class="form-row">
+              <label for="field-email">E-mail</label>
+              <input type="email" id="field-email" name="email" placeholder="exemplo@gmail.com" autocomplete="email"
+                required>
+            </div>
+            <div class="form-row">
+              <label for="field-telefone">Telefone</label>
+              <input type="tel" id="field-telefone" name="telefone" placeholder="+55 (99) 99999-9999"
+                autocomplete="tel">
+            </div>
+            <div class="form-row">
+              <label for="field-empresa">Empresa</label>
+              <input type="text" id="field-empresa" name="empresa" placeholder="Razão Social LTDA"
+                autocomplete="organization">
+            </div>
+            <div class="form-row">
+              <label for="field-mensagem">Mensagem</label>
+              <textarea id="field-mensagem" name="mensagem"
+                placeholder="Olá, gostaria de conhecer melhor os serviços da Cristal EPG"></textarea>
+            </div>
+
+            <button type="submit" class="btn btn--navy">Fale com um especialista!</button>
+          </form>
+        </div>
+      </div>
+
+      <div class="contato__photo">
+        <img src="Contato/1.png" alt="Painéis solares residenciais instalados em telhado de cerâmica" loading="lazy"
+          width="1000" height="1000">
+      </div>
+    </section>
+
+    <!-- ==========================================================
+       PERGUNTAS FREQUENTES
+       ========================================================== -->
+    <section id="faq" aria-labelledby="faq-title">
+      <div class="container">
+        <span class="eyebrow reveal">Perguntas frequentes</span>
+        <div class="faq__grid">
+          <div class="reveal">
+            <h2 id="faq-title" class="text-heading">Tudo o que você precisa saber antes de dar o próximo passo.</h2>
+          </div>
+
+          <div class="faq-list reveal">
+            <details class="faq-item" open>
+              <summary class="faq-item__q">
+                <span>Quais soluções a Cristal Energy Power Generation oferece?</span>
+                <svg class="faq-item__chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                  stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <polyline points="6 9 12 15 18 9" />
+                </svg>
+              </summary>
+              <div class="faq-item__a">Atuamos com diferentes soluções energéticas, incluindo geração solar
+                fotovoltaica, assinatura de energia, Mercado Livre de Energia, BOT e leasing operacional, soluções para
+                o agronegócio, projetos de grande porte, além de suporte a integradores e parceiros.</div>
+            </details>
+
+            <details class="faq-item">
+              <summary class="faq-item__q">
+                <span>A Cristal atende empresas de diferentes portes?</span>
+                <svg class="faq-item__chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                  stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <polyline points="6 9 12 15 18 9" />
+                </svg>
+              </summary>
+              <div class="faq-item__a">Sim. Desenvolvemos soluções para diferentes perfis de operação, desde comércios e
+                pequenas empresas até empresas e projetos de maior escala.</div>
+            </details>
+
+            <details class="faq-item">
+              <summary class="faq-item__q">
+                <span>Como saber qual solução de energia é ideal para o meu negócio?</span>
+                <svg class="faq-item__chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                  stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <polyline points="6 9 12 15 18 9" />
+                </svg>
+              </summary>
+              <div class="faq-item__a">Cada operação possui necessidades e características diferentes. Analisamos o
+                cenário energético para identificar as alternativas mais adequadas ao perfil, objetivos e demanda de
+                cada negócio.</div>
+            </details>
+
+            <details class="faq-item">
+              <summary class="faq-item__q">
+                <span>A Cristal oferece soluções para o agronegócio?</span>
+                <svg class="faq-item__chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                  stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <polyline points="6 9 12 15 18 9" />
+                </svg>
+              </summary>
+              <div class="faq-item__a">Sim. Atuamos com soluções voltadas às demandas energéticas do agronegócio,
+                incluindo aplicações para irrigação, BESS, microrredes e outras necessidades da operação rural.</div>
+            </details>
+
+            <details class="faq-item">
+              <summary class="faq-item__q">
+                <span>Como funciona o primeiro contato com a Cristal?</span>
+                <svg class="faq-item__chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                  stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <polyline points="6 9 12 15 18 9" />
+                </svg>
+              </summary>
+              <div class="faq-item__a">O primeiro passo é entender sua operação, suas necessidades e seus objetivos. A
+                partir dessas informações, avaliamos as possibilidades e direcionamos a solução energética mais
+                adequada.</div>
+            </details>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================
+       CTA FINAL
+       ========================================================== -->
+    <section class="cta-final" aria-labelledby="cta-final-title">
+      <div class="cta-final__media">
+        <img src="CTA Final/1.jpg"
+          alt="Equipe técnica da Cristal Energy Power Generation analisando projeto ao lado de painéis solares"
+          loading="lazy" width="6000" height="4000">
+      </div>
+      <div class="container cta-final__content">
+        <h2 id="cta-final-title">Libere todo o potencial da sua energia.</h2>
+        <p class="visually-hidden">Transforme energia em estratégia para o futuro do seu negócio.</p>
+        <a href="#contato" class="btn btn--primary">Entre em contato</a>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ==========================================================
+     FOOTER
+     ========================================================== -->
+  <footer class="site-footer">
+    <div class="container site-footer__top">
+      <div class="footer-brand">
+        <a href="#topo" class="logo-link" aria-label="Cristal Energy Power Generation">
+          <img src="Logo/Group 2.svg" alt="Cristal Energy Power Generation" loading="lazy" width="219" height="45">
+        </a>
+        <p>Soluções inteligentes em energia para empresas, operações e negócios que pensam no futuro.</p>
+      </div>
+
+      <nav class="footer-col" aria-label="Links do rodapé">
+        <h4>Links</h4>
+        <ul>
+          <li><a href="#institucional">Institucional</a></li>
+          <li><a href="#solucoes">Soluções</a></li>
+          <li><a href="#projetos">Projetos</a></li>
+          <li><a href="#ecossistema">Ecossistema</a></li>
+          <li><a href="#contato">Contato</a></li>
+        </ul>
+      </nav>
+
+      <div class="footer-col">
+        <h4>Contato</h4>
+        <ul>
+          <li>
+            <a class="contact-line" href="mailto:contato@cristalepg.com.br">
+              <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+                aria-hidden="true">
+                <rect x="2" y="4" width="20" height="16" rx="2" />
+                <path d="M2 7l10 6 10-6" />
+              </svg>
+              contato@cristalepg.com.br
+            </a>
+          </li>
+          <li>
+            <a class="contact-line" href="https://instagram.com/cristalepg" target="_blank" rel="noopener noreferrer"
+              aria-label="Instagram da Cristal Energy Power Generation, abre em nova aba">
+              <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+                aria-hidden="true">
+                <rect x="3" y="3" width="18" height="18" rx="5" />
+                <circle cx="12" cy="12" r="4" />
+                <circle cx="17.5" cy="6.5" r="1" />
+              </svg>
+              @cristalepg
+            </a>
+          </li>
+          <li>
+            <a class="contact-line" href="tel:+5519999999999">
+              <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+                aria-hidden="true">
+                <path
+                  d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.362 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.338 1.85.573 2.81.7A2 2 0 0 1 22 16.92z" />
+              </svg>
+              +55 (19) 9999-99999
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="site-footer__bottom">
+      <p>Todos os direitos reservados - Cristal Energy Power Generation © 2026</p>
+    </div>
+  </footer>
+
+  <script>
+    (function () {
+      "use strict";
+
+      /* ---------- Menu mobile ---------- */
+      var navToggle = document.getElementById('navToggle');
+      var mainNav = document.getElementById('mainNav');
+      var navScrim = document.getElementById('navScrim');
+
+      function closeNav() {
+        mainNav.classList.remove('is-open');
+        navScrim.classList.remove('is-open');
+        navToggle.setAttribute('aria-expanded', 'false');
+      }
+      function openNav() {
+        mainNav.classList.add('is-open');
+        navScrim.classList.add('is-open');
+        navToggle.setAttribute('aria-expanded', 'true');
+      }
+      navToggle.addEventListener('click', function () {
+        var isOpen = mainNav.classList.contains('is-open');
+        isOpen ? closeNav() : openNav();
+      });
+      navScrim.addEventListener('click', closeNav);
+      mainNav.querySelectorAll('a').forEach(function (link) {
+        link.addEventListener('click', closeNav);
+      });
+      document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape') closeNav();
+      });
+
+      /* ---------- Cards de serviço: expandir ao hover/focus/click ---------- */
+      var serviceCards = document.querySelectorAll('[data-service-card]');
+      function activateCard(card) {
+        serviceCards.forEach(function (c) { c.classList.remove('service-card--active'); });
+        card.classList.add('service-card--active');
+      }
+      serviceCards.forEach(function (card) {
+        card.addEventListener('mouseenter', function () { activateCard(card); });
+        card.addEventListener('focusin', function () { activateCard(card); });
+      });
+
+      /* ---------- FAQ: abrir/fechar suave (altura animada) + 1 item por vez ---------- */
+      var faqItems = document.querySelectorAll('.faq-item');
+      var faqEasing = 'cubic-bezier(.25,.1,.25,1)';
+      var faqDuration = 320;
+
+      function animateFaqItem(item, opening) {
+        var answer = item.querySelector('.faq-item__a');
+        if (!answer || !item.animate) { item.open = opening; return; }
+
+        item.classList.add('faq-item--animating');
+        var startHeight = item.offsetHeight;
+
+        if (opening) item.open = true;
+        var endHeight = opening ? item.offsetHeight : item.querySelector('.faq-item__q').offsetHeight;
+        if (!opening) item.open = true; /* mantém aberto durante a animação de fechar */
+
+        var anim = item.animate(
+          { height: [startHeight + 'px', endHeight + 'px'] },
+          { duration: faqDuration, easing: faqEasing }
+        );
+        answer.animate(
+          { opacity: opening ? [0, 1] : [1, 0] },
+          { duration: faqDuration * 0.8, easing: faqEasing }
+        );
+
+        anim.onfinish = function () {
+          item.classList.remove('faq-item--animating');
+          item.style.height = '';
+          item.open = opening;
+        };
+      }
+
+      faqItems.forEach(function (item) {
+        var summary = item.querySelector('.faq-item__q');
+        if (!summary) return;
+        summary.addEventListener('click', function (e) {
+          e.preventDefault();
+          if (item.classList.contains('faq-item--animating')) return;
+          var willOpen = !item.open;
+          if (willOpen) {
+            faqItems.forEach(function (other) {
+              if (other !== item && other.open && !other.classList.contains('faq-item--animating')) {
+                animateFaqItem(other, false);
+              }
+            });
+          }
+          animateFaqItem(item, willOpen);
+        });
+      });
+
+      /* Trava a altura do .faq-list no maior estado possível (a maior
+         resposta aberta + demais fechados), pra sessão de FAQ não
+         crescer/encolher ao abrir e fechar perguntas. Recalcula no resize. */
+      var faqList = document.querySelector('.faq-list');
+      function lockFaqListHeight() {
+        if (!faqList || !faqItems.length) return;
+        faqList.style.height = '';
+        var wasOpen = [];
+        faqItems.forEach(function (item) { wasOpen.push(item.open); item.open = false; });
+        var closedHeight = faqList.offsetHeight;
+        var extra = 0;
+        faqItems.forEach(function (item) {
+          item.open = true;
+          extra = Math.max(extra, item.offsetHeight - item.querySelector('.faq-item__q').offsetHeight);
+          item.open = false;
+        });
+        faqItems.forEach(function (item, i) { item.open = wasOpen[i]; });
+        faqList.style.height = (closedHeight + extra) + 'px';
+      }
+      if (faqList) {
+        lockFaqListHeight();
+        window.addEventListener('resize', lockFaqListHeight);
+      }
+
+      /* ---------- Reveal on scroll (sutil) ---------- */
+      var prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (!prefersReduced && 'IntersectionObserver' in window) {
+        var observer = new IntersectionObserver(function (entries) {
+          entries.forEach(function (entry) {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('is-visible');
+              observer.unobserve(entry.target);
+            }
+          });
+        }, { threshold: 0.12, rootMargin: '0px 0px -60px 0px' });
+        document.querySelectorAll('.reveal').forEach(function (el) { observer.observe(el); });
+      } else {
+        document.querySelectorAll('.reveal').forEach(function (el) { el.classList.add('is-visible'); });
+      }
+
+      /* ---------- Formulário de contato: abre cliente de e-mail com mensagem pronta ---------- */
+      var form = document.getElementById('contactForm');
+      form.addEventListener('submit', function (e) {
+        e.preventDefault();
+        var nome = document.getElementById('field-nome').value.trim();
+        var email = document.getElementById('field-email').value.trim();
+        var telefone = document.getElementById('field-telefone').value.trim();
+        var empresa = document.getElementById('field-empresa').value.trim();
+        var mensagem = document.getElementById('field-mensagem').value.trim();
+
+        if (!nome || !email) {
+          alert('Por favor, preencha ao menos Nome e E-mail para continuar.');
+          return;
+        }
+
+        var corpo = 'Nome: ' + nome + '\n' +
+          'E-mail: ' + email + '\n' +
+          (telefone ? 'Telefone: ' + telefone + '\n' : '') +
+          (empresa ? 'Empresa: ' + empresa + '\n' : '') +
+          '\nMensagem:\n' + (mensagem || '(não informada)');
+
+        var mailto = 'mailto:contato@cristalepg.com.br' +
+          '?subject=' + encodeURIComponent('Contato via site — ' + nome) +
+          '&body=' + encodeURIComponent(corpo);
+
+        window.location.href = mailto;
+      });
+    })();
+  </script>
+
+</body>
+
+</html>
