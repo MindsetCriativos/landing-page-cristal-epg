@@ -486,8 +486,9 @@
 
     .hero__media {
       position: absolute;
-      inset: 0;
+      inset: -10% 0;
       z-index: 0;
+      will-change: transform;
     }
 
     .hero__media img,
@@ -1160,33 +1161,6 @@
       .service-card {
         flex: none !important;
         display: block;
-        position: sticky;
-        box-shadow: 0 -12px 24px -18px rgba(9, 26, 45, .12);
-      }
-
-      .service-card:nth-child(1) {
-        top: 24px;
-        z-index: 1;
-      }
-
-      .service-card:nth-child(2) {
-        top: 44px;
-        z-index: 2;
-      }
-
-      .service-card:nth-child(3) {
-        top: 64px;
-        z-index: 3;
-      }
-
-      .service-card:nth-child(4) {
-        top: 84px;
-        z-index: 4;
-      }
-
-      .service-card:nth-child(5) {
-        top: 104px;
-        z-index: 5;
       }
 
       .service-card__media {
@@ -2535,6 +2509,48 @@
         document.querySelectorAll('.reveal').forEach(function (el) { observer.observe(el); });
       } else {
         document.querySelectorAll('.reveal').forEach(function (el) { el.classList.add('is-visible'); });
+      }
+
+      /* Smooth scroll customizado via JS removido: interceptar o wheel com
+         preventDefault deixava a rolagem com sensação de atraso/travamento
+         mesmo com pouca inércia, porque o scroll nativo do navegador nunca
+         chegava a rodar. O `scroll-behavior:smooth` do CSS (ver seletor
+         html no topo do arquivo) já cobre a suavização de cliques em
+         âncoras, que é o essencial aqui. */
+
+      /* ---------- Parallax sutil no vídeo/imagem de fundo da Hero ---------- */
+      var heroMedia = document.querySelector('.hero__media');
+      var heroSection = document.querySelector('.hero');
+      if (heroMedia && heroSection && !prefersReduced) {
+        var parallaxTicking = false;
+        var PARALLAX_STRENGTH = 0.25; /* 0 = sem movimento, 1 = acompanha o scroll 1:1 */
+
+        function updateParallax() {
+          parallaxTicking = false;
+          var rect = heroSection.getBoundingClientRect();
+          /* só calcula enquanto a Hero está (ao menos parcialmente) na tela */
+          if (rect.bottom < 0 || rect.top > window.innerHeight) return;
+          /* limita o deslocamento à folga real da mídia (10% da altura da
+             seção pra cada lado, ver CSS .hero__media{inset:-10% 0}), senão
+             em telas altas o vídeo desloca além da própria borda e revela
+             o fundo da página logo abaixo da Hero. */
+          var maxOffset = rect.height * 0.10;
+          var offset = rect.top * PARALLAX_STRENGTH;
+          if (offset > maxOffset) offset = maxOffset;
+          if (offset < -maxOffset) offset = -maxOffset;
+          heroMedia.style.transform = 'translateY(' + offset + 'px)';
+        }
+
+        function onScroll() {
+          if (!parallaxTicking) {
+            parallaxTicking = true;
+            window.requestAnimationFrame(updateParallax);
+          }
+        }
+
+        updateParallax();
+        window.addEventListener('scroll', onScroll, { passive: true });
+        window.addEventListener('resize', onScroll);
       }
 
       /* ---------- Formulário de contato: abre cliente de e-mail com mensagem pronta ---------- */
