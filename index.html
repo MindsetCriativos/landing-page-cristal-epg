@@ -427,6 +427,10 @@
         font-size: 1.1rem;
       }
 
+      .main-nav__cta-item {
+        width: 100%;
+      }
+
       .main-nav__cta.btn--primary {
         display: flex;
         margin-top: var(--gap-lg);
@@ -934,36 +938,77 @@
     }
 
     /* ---------- Carrossel de imagens (faixa) ---------- */
-    .strip {
+    /* .strip-wrap ocupa a largura cheia do container (sem o padding lateral
+       do .container pai) e recorta o overflow; dentro dele, duas cópias
+       idênticas da lista de imagens (.strip) ficam lado a lado, em flex,
+       e uma animação translateX desloca esse trilho continuamente. Como a
+       segunda cópia é idêntica à primeira, quando a animação chega em
+       -50% (fim da 1ª cópia) ela reinicia do 0% sem nenhuma costura visível
+       — o loop parece infinito. */
+    .strip-wrap {
       margin-top: var(--gap-2xl);
-      display: grid;
-      grid-template-columns: repeat(5, 1fr);
+      margin-inline: -20px;
+      overflow: hidden;
+      container-type: inline-size;
+    }
+
+    .strip-track {
+      display: flex;
+      width: max-content;
+      animation: strip-scroll 40s linear infinite;
+    }
+
+    .strip-wrap:hover .strip-track {
+      animation-play-state: paused;
+    }
+
+    .strip {
+      display: flex;
       gap: 4px;
+      padding-inline: 2px;
+    }
+
+    .strip li {
+      flex: 0 0 auto;
+      width: 20cqw;
+      max-width: 280px;
     }
 
     .strip img {
+      display: block;
       width: 100%;
       height: 230px;
       object-fit: cover;
     }
 
+    @keyframes strip-scroll {
+      from { transform: translateX(0); }
+      to { transform: translateX(-50%); }
+    }
+
     @media (max-width:900px) {
-      .strip {
-        grid-template-columns: repeat(3, 1fr);
+      .strip li {
+        width: 33.333cqw;
       }
 
-      .strip li:nth-child(n+4) {
-        display: none;
+      .strip img {
+        height: 180px;
       }
     }
 
     @media (max-width:560px) {
-      .strip {
-        grid-template-columns: repeat(2, 1fr);
+      .strip li {
+        width: 50cqw;
       }
 
       .strip img {
         height: 150px;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .strip-track {
+        animation: none;
       }
     }
 
@@ -1115,6 +1160,33 @@
       .service-card {
         flex: none !important;
         display: block;
+        position: sticky;
+        box-shadow: 0 -12px 24px -18px rgba(9, 26, 45, .12);
+      }
+
+      .service-card:nth-child(1) {
+        top: 24px;
+        z-index: 1;
+      }
+
+      .service-card:nth-child(2) {
+        top: 44px;
+        z-index: 2;
+      }
+
+      .service-card:nth-child(3) {
+        top: 64px;
+        z-index: 3;
+      }
+
+      .service-card:nth-child(4) {
+        top: 84px;
+        z-index: 4;
+      }
+
+      .service-card:nth-child(5) {
+        top: 104px;
+        z-index: 5;
       }
 
       .service-card__media {
@@ -1742,7 +1814,7 @@
                 <li><a href="#solucoes">Soluções</a></li>
                 <li><a href="#ecossistema">Ecossistema</a></li>
                 <li><a href="#contato">Contato</a></li>
-                <li><a href="#contato" class="btn btn--primary main-nav__cta">Contato</a></li>
+                <li class="main-nav__cta-item"><a href="#contato" class="btn btn--primary main-nav__cta">Contato</a></li>
               </ul>
             </nav>
 
@@ -1872,18 +1944,29 @@
 
       <!-- Faixa de imagens / projetos (seção visual, sem copy adicional) -->
       <div class="container" id="projetos" aria-label="Galeria de projetos Cristal Energy Power Generation">
-        <ul class="strip reveal">
-          <li><img src="Carrossel/1.png" alt="Equipe técnica realizando manutenção em painéis solares" loading="lazy"
-              width="600" height="600"></li>
-          <li><img src="Carrossel/2.png" alt="Vista aérea de painéis solares integrados à vegetação natural"
-              loading="lazy" width="600" height="600"></li>
-          <li><img src="Carrossel/3.png" alt="Extensa usina solar fotovoltaica em operação" loading="lazy" width="600"
-              height="600"></li>
-          <li><img src="Carrossel/4.png" alt="Equipe da Cristal Energy Power Generation em campo de energia solar"
-              loading="lazy" width="600" height="600"></li>
-          <li><img src="Carrossel/5.png" alt="Tecnologia aplicada ao agronegócio com monitoramento inteligente"
-              loading="lazy" width="600" height="600"></li>
-        </ul>
+        <div class="strip-wrap reveal">
+          <div class="strip-track">
+            <ul class="strip" aria-hidden="false">
+              <li><img src="Carrossel/1.png" alt="Equipe técnica realizando manutenção em painéis solares"
+                  loading="lazy" width="600" height="600"></li>
+              <li><img src="Carrossel/2.png" alt="Vista aérea de painéis solares integrados à vegetação natural"
+                  loading="lazy" width="600" height="600"></li>
+              <li><img src="Carrossel/3.png" alt="Extensa usina solar fotovoltaica em operação" loading="lazy"
+                  width="600" height="600"></li>
+              <li><img src="Carrossel/4.png" alt="Equipe da Cristal Energy Power Generation em campo de energia solar"
+                  loading="lazy" width="600" height="600"></li>
+              <li><img src="Carrossel/5.png" alt="Tecnologia aplicada ao agronegócio com monitoramento inteligente"
+                  loading="lazy" width="600" height="600"></li>
+            </ul>
+            <ul class="strip" aria-hidden="true">
+              <li><img src="Carrossel/1.png" alt="" loading="lazy" width="600" height="600"></li>
+              <li><img src="Carrossel/2.png" alt="" loading="lazy" width="600" height="600"></li>
+              <li><img src="Carrossel/3.png" alt="" loading="lazy" width="600" height="600"></li>
+              <li><img src="Carrossel/4.png" alt="" loading="lazy" width="600" height="600"></li>
+              <li><img src="Carrossel/5.png" alt="" loading="lazy" width="600" height="600"></li>
+            </ul>
+          </div>
+        </div>
       </div>
     </section>
 
