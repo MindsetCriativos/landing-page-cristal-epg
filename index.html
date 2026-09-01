@@ -347,16 +347,16 @@
       }
     }
 
-    .site-header--scrolled .lang-switch {
+    .site-header--scrolled .lang-switch__options {
       border-color: rgba(9, 26, 45, .25);
       background: rgba(9, 26, 45, .06);
     }
 
-    .site-header--scrolled .lang-switch button {
+    .site-header--scrolled .lang-switch__options button {
       color: rgba(9, 26, 45, .6);
     }
 
-    .site-header--scrolled .lang-switch button.is-active {
+    .site-header--scrolled .lang-switch__options button.is-active {
       background: var(--navy-900);
       color: var(--white);
     }
@@ -406,15 +406,24 @@
     .logo-link img {
       height: 36px;
       width: auto;
+      /* A logo tem um subtítulo fino colado embaixo do texto principal,
+         então seu centro geométrico fica mais baixo que seu centro visual
+         (ícone + "CRISTAL"). Esse leve ajuste evita a impressão de que os
+         outros itens do header estão "mais baixos" que a logo. */
+      margin-top: -4px;
     }
 
     .nav-toggle {
       display: none;
+      position: relative;
+      z-index: 101;
       background: rgba(9, 41, 71, .35);
       border: 1px solid rgba(255, 255, 255, .5);
       border-radius: 0;
       width: 44px;
       height: 44px;
+      padding: 0;
+      flex: none;
       align-items: center;
       justify-content: center;
       color: var(--white);
@@ -423,6 +432,25 @@
     .nav-toggle svg {
       width: 22px;
       height: 22px;
+    }
+
+    /* Animação hambúrguer -> X: a linha do meio some, as de cima/baixo
+       giram e se encontram no centro pra formar o X. */
+    .nav-toggle__line {
+      transform-origin: 12px 12px;
+      transition: transform var(--transition), opacity var(--transition);
+    }
+
+    .nav-toggle[aria-expanded="true"] .nav-toggle__line--top {
+      transform: rotate(45deg) translateY(6px);
+    }
+
+    .nav-toggle[aria-expanded="true"] .nav-toggle__line--mid {
+      opacity: 0;
+    }
+
+    .nav-toggle[aria-expanded="true"] .nav-toggle__line--bottom {
+      transform: rotate(-45deg) translateY(-6px);
     }
 
     .main-nav__list {
@@ -488,12 +516,9 @@
 
     /* Switch de idioma PT/EN */
     .lang-switch {
+      position: relative;
       display: flex;
       align-items: center;
-      gap: 4px;
-      background: rgba(255, 255, 255, .12);
-      border: 1px solid rgba(255, 255, 255, .5);
-      padding: 3px;
     }
 
     /* No desktop, empurra o switch (e o header-actions logo depois) para
@@ -516,7 +541,50 @@
       }
     }
 
-    .lang-switch button {
+    /* Trigger em formato de dropdown — só existe visualmente no mobile
+       (ver media query abaixo). No desktop os dois botões PT/EN ficam
+       sempre visíveis lado a lado, sem trigger. */
+    .lang-switch__trigger {
+      display: none;
+      align-items: center;
+      gap: 6px;
+      border: 1px solid rgba(255, 255, 255, .5);
+      background: rgba(255, 255, 255, .12);
+      color: var(--white);
+      font-family: inherit;
+      font-weight: 700;
+      font-size: .78rem;
+      letter-spacing: .02em;
+      padding: 9px 10px;
+      cursor: pointer;
+    }
+
+    .lang-switch__trigger svg {
+      width: 13px;
+      height: 13px;
+      transition: transform var(--transition);
+    }
+
+    .lang-switch.is-open .lang-switch__trigger svg {
+      transform: rotate(180deg);
+    }
+
+    .site-header--scrolled .lang-switch__trigger {
+      border-color: rgba(9, 26, 45, .35);
+      background: rgba(9, 26, 45, .06);
+      color: var(--navy-ink);
+    }
+
+    .lang-switch__options {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      background: rgba(255, 255, 255, .12);
+      border: 1px solid rgba(255, 255, 255, .5);
+      padding: 3px;
+    }
+
+    .lang-switch__options button {
       border: 0;
       background: transparent;
       color: rgba(255, 255, 255, .75);
@@ -530,11 +598,11 @@
       transition: background var(--transition), color var(--transition);
     }
 
-    .lang-switch button:hover {
+    .lang-switch__options button:hover {
       color: var(--white);
     }
 
-    .lang-switch button.is-active {
+    .lang-switch__options button.is-active {
       background: var(--white);
       color: var(--navy-ink);
     }
@@ -544,14 +612,27 @@
         padding: 24px 24px 0;
       }
 
+      /* Logo menor no mobile: centralizada entre o hambúrguer e o switch,
+         precisa caber com folga sem encostar nos dois. */
+      .logo-link img {
+        height: 26px;
+      }
+
+      /* No mobile o header normal usa padding-bottom:0 (a hero ocupa o
+         resto do espaço), mas o estado flutuante precisa de padding
+         simétrico pra centralizar o switch/hambúrguer com folga real. */
+      .site-header--scrolled {
+        padding: 12px 24px;
+      }
+
       .main-nav {
         position: fixed;
-        inset: 0 0 0 auto;
+        inset: 0 auto 0 0;
         width: min(320px, 84vw);
         height: 100vh;
         background: var(--navy-900);
         padding: 96px 28px 28px;
-        transform: translateX(100%);
+        transform: translateX(-100%);
         transition: transform var(--transition);
         z-index: 99;
       }
@@ -583,13 +664,72 @@
         color: var(--navy-ink);
       }
 
+      /* Navbar mobile em 3 zonas: hambúrguer à esquerda, logo centralizada
+         (tirada do fluxo, como o .main-nav no desktop), switch à direita. */
       .nav-toggle {
         display: inline-flex;
-        order: 2;
+        order: 1;
+      }
+
+      .site-header__inner>.logo-link {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
       }
 
       .lang-switch {
-        order: 1;
+        order: 3;
+        margin-left: auto;
+      }
+
+      /* No mobile o switch vira um dropdown: um botão único mostrando o
+         idioma atual, que abre as duas opções por baixo ao clicar. */
+      .lang-switch__trigger {
+        display: inline-flex;
+      }
+
+      .lang-switch__options {
+        position: absolute;
+        top: calc(100% + 8px);
+        right: 0;
+        flex-direction: column;
+        gap: 0;
+        padding: 0;
+        background: var(--white);
+        border-color: rgba(9, 26, 45, .15);
+        box-shadow: 0 12px 28px -10px rgba(9, 26, 45, .35);
+        opacity: 0;
+        visibility: hidden;
+        transform: translateY(-6px);
+        transition: opacity var(--transition), transform var(--transition), visibility var(--transition);
+      }
+
+      .lang-switch.is-open .lang-switch__options {
+        opacity: 1;
+        visibility: visible;
+        transform: translateY(0);
+      }
+
+      .lang-switch__options button {
+        width: 100%;
+        color: var(--navy-ink);
+        padding: 10px 20px;
+        text-align: left;
+      }
+
+      .lang-switch__options button.is-active {
+        background: var(--navy-900);
+        color: var(--white);
+      }
+
+      .site-header--scrolled .lang-switch__options button {
+        color: var(--navy-ink);
+      }
+
+      .site-header--scrolled .lang-switch__options button.is-active {
+        background: var(--navy-900);
+        color: var(--white);
       }
 
       .header-actions {
@@ -1972,9 +2112,9 @@
             <button class="nav-toggle" id="navToggle" aria-expanded="false" aria-controls="mainNav"
               aria-label="Abrir menu de navegação" data-en-aria-label="Open navigation menu">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
-                <line x1="3" y1="6" x2="21" y2="6" />
-                <line x1="3" y1="12" x2="21" y2="12" />
-                <line x1="3" y1="18" x2="21" y2="18" />
+                <line class="nav-toggle__line nav-toggle__line--top" x1="3" y1="6" x2="21" y2="6" />
+                <line class="nav-toggle__line nav-toggle__line--mid" x1="3" y1="12" x2="21" y2="12" />
+                <line class="nav-toggle__line nav-toggle__line--bottom" x1="3" y1="18" x2="21" y2="18" />
               </svg>
             </button>
 
@@ -1988,9 +2128,22 @@
               </ul>
             </nav>
 
-            <div class="lang-switch" id="langSwitch" role="group" aria-label="Selecionar idioma / Select language">
-              <button type="button" id="langBtnPt" class="is-active" data-lang="pt" aria-pressed="true">PT</button>
-              <button type="button" id="langBtnEn" data-lang="en" aria-pressed="false">EN</button>
+            <div class="lang-switch" id="langSwitch">
+              <button type="button" class="lang-switch__trigger" id="langTrigger" aria-haspopup="true"
+                aria-expanded="false" aria-controls="langOptions"
+                aria-label="Idioma atual: Português. Abrir seletor de idioma"
+                data-en-aria-label="Current language: English. Open language selector">
+                <span id="langTriggerLabel">PT</span>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"
+                  stroke-linejoin="round" aria-hidden="true">
+                  <polyline points="6 9 12 15 18 9" />
+                </svg>
+              </button>
+              <div class="lang-switch__options" id="langOptions" role="group"
+                aria-label="Selecionar idioma / Select language">
+                <button type="button" id="langBtnPt" class="is-active" data-lang="pt" aria-pressed="true">PT</button>
+                <button type="button" id="langBtnEn" data-lang="en" aria-pressed="false">EN</button>
+              </div>
             </div>
 
             <div class="header-actions">
@@ -2614,7 +2767,34 @@
 
       var langBtnPt = document.getElementById('langBtnPt');
       var langBtnEn = document.getElementById('langBtnEn');
+      var langSwitch = document.getElementById('langSwitch');
+      var langTrigger = document.getElementById('langTrigger');
+      var langTriggerLabel = document.getElementById('langTriggerLabel');
       var currentLang = 'pt';
+
+      function closeLangDropdown() {
+        langSwitch.classList.remove('is-open');
+        langTrigger.setAttribute('aria-expanded', 'false');
+      }
+
+      function toggleLangDropdown() {
+        var willOpen = !langSwitch.classList.contains('is-open');
+        langSwitch.classList.toggle('is-open', willOpen);
+        langTrigger.setAttribute('aria-expanded', String(willOpen));
+      }
+
+      langTrigger.addEventListener('click', function (e) {
+        e.stopPropagation();
+        toggleLangDropdown();
+      });
+
+      document.addEventListener('click', function (e) {
+        if (!langSwitch.contains(e.target)) { closeLangDropdown(); }
+      });
+
+      document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape') { closeLangDropdown(); }
+      });
 
       function applyLanguage(lang) {
         currentLang = lang;
@@ -2656,6 +2836,9 @@
         langBtnEn.classList.toggle('is-active', isEn);
         langBtnPt.setAttribute('aria-pressed', String(!isEn));
         langBtnEn.setAttribute('aria-pressed', String(isEn));
+
+        langTriggerLabel.textContent = isEn ? 'EN' : 'PT';
+        closeLangDropdown();
 
         try { window.localStorage.setItem(LANG_KEY, lang); } catch (err) { /* localStorage indisponível: segue sem persistir */ }
       }
