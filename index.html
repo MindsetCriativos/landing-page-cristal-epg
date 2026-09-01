@@ -4,8 +4,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Cristal Energy Power Generation | Energia solar inteligente para empresas</title>
-  <meta name="description"
+  <title id="pageTitle">Cristal Energy Power Generation | Energia solar inteligente para empresas</title>
+  <meta id="pageDescription" name="description"
     content="Soluções em energia desenvolvidas para diferentes perfis de operação, combinando tecnologia, estratégia e eficiência para transformar a forma como sua empresa utiliza energia.">
   <link rel="icon" type="image/svg+xml" href="Logo/fav.svg">
   <link rel="alternate icon" href="Logo/fav.svg">
@@ -302,7 +302,96 @@
       padding: 32px 40px 0;
     }
 
+    /* Espaçador que assume o lugar do header no fluxo da hero quando ele
+       vira fixed (--scrolled) — evita o conteúdo da hero "pular" pra cima. */
+    .site-header__spacer {
+      display: none;
+      height: 0;
+    }
+
+    /* Header flutuante: ativado via JS (classe .site-header--scrolled) a
+       partir de um certo scroll. Sai do fluxo normal, ganha fundo
+       translúcido com blur e se desprende visualmente da hero. Some ao
+       rolar pra baixo e reaparece ao rolar pra cima (.site-header--hidden). */
+    .site-header--scrolled {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      padding: 16px 40px;
+      background: rgba(255, 255, 255, .72);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      box-shadow: 0 8px 24px -12px rgba(9, 26, 45, .18);
+      transition: transform 320ms ease, background 320ms ease, padding 320ms ease;
+    }
+
+    .site-header--scrolled+.site-header__spacer {
+      display: block;
+    }
+
+    .site-header--scrolled .nav-toggle {
+      color: var(--navy-ink);
+    }
+
+    /* Os links do .main-nav só ficam navy no header flutuante quando estão
+       inline na navbar (desktop) — no mobile o nav é um painel próprio com
+       fundo navy e texto branco, que não deve ser afetado por isso. */
+    @media (min-width:901px) {
+      .site-header--scrolled .main-nav__list a {
+        color: var(--navy-ink);
+      }
+
+      .site-header--scrolled .main-nav__list a::after {
+        background: var(--navy-900);
+      }
+    }
+
+    .site-header--scrolled .lang-switch {
+      border-color: rgba(9, 26, 45, .25);
+      background: rgba(9, 26, 45, .06);
+    }
+
+    .site-header--scrolled .lang-switch button {
+      color: rgba(9, 26, 45, .6);
+    }
+
+    .site-header--scrolled .lang-switch button.is-active {
+      background: var(--navy-900);
+      color: var(--white);
+    }
+
+    .site-header--scrolled .header-actions .btn--primary {
+      background: var(--navy-900);
+      color: var(--white);
+    }
+
+    .site-header--scrolled .header-actions .btn--primary:hover {
+      background: var(--gold);
+      color: var(--navy-900);
+    }
+
+    .site-header--scrolled .header-actions .btn--outline {
+      color: var(--navy-ink);
+      border-color: rgba(9, 26, 45, .35);
+    }
+
+    .site-header--scrolled .header-actions .btn--outline:hover {
+      background: rgba(9, 26, 45, .08);
+      border-color: var(--navy-900);
+    }
+
+    .site-header--scrolled .nav-toggle {
+      background: rgba(9, 26, 45, .08);
+      border-color: rgba(9, 26, 45, .25);
+    }
+
+    .site-header--hidden {
+      transform: translateY(-100%);
+    }
+
     .site-header__inner {
+      position: relative;
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -397,6 +486,59 @@
       border-color: var(--white);
     }
 
+    /* Switch de idioma PT/EN */
+    .lang-switch {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      background: rgba(255, 255, 255, .12);
+      border: 1px solid rgba(255, 255, 255, .5);
+      padding: 3px;
+    }
+
+    /* No desktop, empurra o switch (e o header-actions logo depois) para
+       colar à esquerda do CTA "Contato" — o gap de ~24px vem do próprio
+       gap do .site-header__inner, sem precisar de margin extra. Sem isso,
+       o justify-content: space-between espalharia os itens soltos.
+       O .main-nav é tirado do fluxo (position: absolute) e centralizado de
+       forma independente, pra continuar no meio do header mesmo com esse
+       empurrão à direita. */
+    @media (min-width:901px) {
+      .lang-switch {
+        margin-left: auto;
+      }
+
+      .main-nav {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+      }
+    }
+
+    .lang-switch button {
+      border: 0;
+      background: transparent;
+      color: rgba(255, 255, 255, .75);
+      font-family: inherit;
+      font-weight: 700;
+      font-size: .78rem;
+      letter-spacing: .02em;
+      line-height: 1;
+      padding: 7px 12px;
+      cursor: pointer;
+      transition: background var(--transition), color var(--transition);
+    }
+
+    .lang-switch button:hover {
+      color: var(--white);
+    }
+
+    .lang-switch button.is-active {
+      background: var(--white);
+      color: var(--navy-ink);
+    }
+
     @media (max-width:900px) {
       .site-header {
         padding: 24px 24px 0;
@@ -443,6 +585,11 @@
 
       .nav-toggle {
         display: inline-flex;
+        order: 2;
+      }
+
+      .lang-switch {
+        order: 1;
       }
 
       .header-actions {
@@ -1731,12 +1878,58 @@
       transform: translateY(0);
     }
 
+    /* Animação de entrada da hero (dispara ao carregar, não no scroll) */
+    .hero-intro {
+      opacity: 0;
+      transform: translateY(22px);
+      transition: opacity 700ms ease, transform 700ms ease;
+    }
+
+    .hero-intro.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .hero__text> :nth-child(1) {
+      transition-delay: 80ms;
+    }
+
+    .hero__text> :nth-child(2) {
+      transition-delay: 200ms;
+    }
+
+    .hero__text> :nth-child(3) {
+      transition-delay: 320ms;
+    }
+
+    .hero__stats .stat:nth-child(1) {
+      transition-delay: 420ms;
+    }
+
+    .hero__stats .stat:nth-child(2) {
+      transition-delay: 500ms;
+    }
+
+    .hero__stats .stat:nth-child(3) {
+      transition-delay: 580ms;
+    }
+
+    .hero__stats .stat:nth-child(4) {
+      transition-delay: 660ms;
+    }
+
     @media (prefers-reduced-motion: reduce) {
       html {
         scroll-behavior: auto;
       }
 
       .reveal {
+        opacity: 1;
+        transform: none;
+        transition: none;
+      }
+
+      .hero-intro {
         opacity: 1;
         transform: none;
         transition: none;
@@ -1752,7 +1945,7 @@
 
 <body>
 
-  <a class="skip-link" href="#main-content">Pular para o conteúdo principal</a>
+  <a class="skip-link" href="#main-content" data-en="Skip to main content">Pular para o conteúdo principal</a>
 
   <main id="main-content">
 
@@ -1760,22 +1953,24 @@
        HERO (o header vive dentro do card do hero)
        ========================================================== -->
     <div class="hero-wrap">
-      <section class="hero" id="topo" aria-label="Apresentação">
+      <section class="hero" id="topo" aria-label="Apresentação" data-en-aria-label="Introduction">
         <div class="hero__media">
           <video autoplay muted loop playsinline poster="Hero/1.jpg"
-            aria-label="Vídeo institucional em loop mostrando painéis solares fotovoltaicos instalados em grande escala">
+            aria-label="Vídeo institucional em loop mostrando painéis solares fotovoltaicos instalados em grande escala"
+            data-en-aria-label="Institutional looping video showing large-scale photovoltaic solar panel installations">
             <source src="Hero/VSL.mp4" type="video/mp4">
           </video>
         </div>
 
-        <header class="site-header">
+        <header class="site-header" id="siteHeader">
           <div class="site-header__inner">
-            <a href="#topo" class="logo-link" aria-label="Cristal Energy Power Generation — página inicial">
+            <a href="#topo" class="logo-link" aria-label="Cristal Energy Power Generation — página inicial"
+              data-en-aria-label="Cristal Energy Power Generation — homepage">
               <img src="Logo/Group 1.svg" alt="Cristal Energy Power Generation" loading="lazy" width="219" height="45">
             </a>
 
             <button class="nav-toggle" id="navToggle" aria-expanded="false" aria-controls="mainNav"
-              aria-label="Abrir menu de navegação">
+              aria-label="Abrir menu de navegação" data-en-aria-label="Open navigation menu">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
                 <line x1="3" y1="6" x2="21" y2="6" />
                 <line x1="3" y1="12" x2="21" y2="12" />
@@ -1783,56 +1978,64 @@
               </svg>
             </button>
 
-            <nav class="main-nav" id="mainNav" aria-label="Navegação principal">
+            <nav class="main-nav" id="mainNav" aria-label="Navegação principal" data-en-aria-label="Main navigation">
               <ul class="main-nav__list">
-                <li><a href="#institucional">Institucional</a></li>
-                <li><a href="#solucoes">Soluções</a></li>
-                <li><a href="#ecossistema">Ecossistema</a></li>
-                <li><a href="#contato">Contato</a></li>
-                <li class="main-nav__cta-item"><a href="#contato" class="btn btn--primary main-nav__cta">Contato</a></li>
+                <li><a href="#institucional" data-en="About">Institucional</a></li>
+                <li><a href="#solucoes" data-en="Solutions">Soluções</a></li>
+                <li><a href="#ecossistema" data-en="Ecosystem">Ecossistema</a></li>
+                <li><a href="#contato" data-en="Contact">Contato</a></li>
+                <li class="main-nav__cta-item"><a href="#contato" class="btn btn--primary main-nav__cta" data-en="Contact">Contato</a></li>
               </ul>
             </nav>
 
+            <div class="lang-switch" id="langSwitch" role="group" aria-label="Selecionar idioma / Select language">
+              <button type="button" id="langBtnPt" class="is-active" data-lang="pt" aria-pressed="true">PT</button>
+              <button type="button" id="langBtnEn" data-lang="en" aria-pressed="false">EN</button>
+            </div>
+
             <div class="header-actions">
-              <a href="#contato" class="btn btn--header btn--primary">Contato</a>
-              <a href="#solucoes" class="btn btn--header btn--outline">Soluções</a>
+              <a href="#contato" class="btn btn--header btn--primary" data-en="Contact">Contato</a>
+              <a href="#solucoes" class="btn btn--header btn--outline" data-en="Solutions">Soluções</a>
             </div>
           </div>
           <div class="nav-scrim" id="navScrim"></div>
         </header>
+        <div class="site-header__spacer" id="headerSpacer"></div>
 
         <div class="hero__content">
           <div class="hero__text">
-            <h1>Energia solar inteligente para empresas, grandes operações e para o futuro do seu negócio.</h1>
-            <p class="hero__lead">Soluções em energia desenvolvidas para diferentes perfis de operação, combinando
+            <h1 class="hero-intro" data-en="Smart solar energy for businesses, large-scale operations and the future of your company.">Energia solar inteligente para empresas, grandes operações e para o futuro do seu
+              negócio.</h1>
+            <p class="hero__lead hero-intro" data-en="Energy solutions built for different operation profiles, combining technology, strategy and efficiency to transform how your company uses energy.">Soluções em energia desenvolvidas para diferentes perfis de operação,
+              combinando
               tecnologia, estratégia e eficiência para transformar a forma como sua empresa utiliza energia.</p>
-            <div class="hero__ctas">
-              <a href="#contato" class="btn btn--primary">Fale com um especialista! <span class="btn-arrow"
+            <div class="hero__ctas hero-intro">
+              <a href="#contato" class="btn btn--primary"><span data-en="Talk to a specialist!">Fale com um especialista!</span> <span class="btn-arrow"
                   aria-hidden="true">→</span></a>
-              <a href="#solucoes" class="btn btn--outline">Conheça nossas soluções!</a>
+              <a href="#solucoes" class="btn btn--outline" data-en="See our solutions!">Conheça nossas soluções!</a>
             </div>
           </div>
 
-          <div class="hero__stats" role="group" aria-label="Indicadores da Cristal Energy Power Generation">
-            <div class="stat stat--glass">
-              <p class="stat__value">90<small>%</small></p>
-              <p class="stat__label">De economia gerada</p>
+          <div class="hero__stats" role="group" aria-label="Indicadores da Cristal Energy Power Generation" data-en-aria-label="Cristal Energy Power Generation key figures">
+            <div class="stat stat--glass hero-intro">
+              <p class="stat__value"><span class="stat__num" data-count-to="90">0</span><small>%</small></p>
+              <p class="stat__label" data-en="Generated savings">De economia gerada</p>
             </div>
-            <div class="stat stat--glass">
-              <p class="stat__value">+120</p>
-              <p class="stat__label">Clientes impactados</p>
+            <div class="stat stat--glass hero-intro">
+              <p class="stat__value">+<span class="stat__num" data-count-to="120">0</span></p>
+              <p class="stat__label" data-en="Clients impacted">Clientes impactados</p>
             </div>
-            <div class="stat">
+            <div class="stat hero-intro">
               <p class="stat__value"><img class="bracket bracket--left" src="Hero/folha esquerda.svg" alt=""
-                  loading="lazy"> 100% <img class="bracket bracket--right" src="Hero/folha direita.svg" alt=""
-                  loading="lazy"></p>
-              <p class="stat__label">Soluções pensadas para cada operação</p>
+                  loading="lazy"> <span class="stat__num" data-count-to="100">0</span>% <img class="bracket bracket--right"
+                  src="Hero/folha direita.svg" alt="" loading="lazy"></p>
+              <p class="stat__label" data-en="Solutions built for every operation">Soluções pensadas para cada operação</p>
             </div>
-            <div class="stat">
+            <div class="stat hero-intro">
               <p class="stat__value"><img class="bracket bracket--left" src="Hero/folha esquerda.svg" alt=""
-                  loading="lazy"> 360° <img class="bracket bracket--right" src="Hero/folha direita.svg" alt=""
-                  loading="lazy"></p>
-              <p class="stat__label">Visão estratégica do negócio</p>
+                  loading="lazy"> <span class="stat__num" data-count-to="360">0</span>° <img class="bracket bracket--right"
+                  src="Hero/folha direita.svg" alt="" loading="lazy"></p>
+              <p class="stat__label" data-en="360° strategic business vision">Visão estratégica do negócio</p>
             </div>
           </div>
         </div>
@@ -1847,33 +2050,34 @@
         <div class="institucional__layout">
           <div class="institucional__side reveal">
             <div class="institucional__label">
-              <span class="eyebrow">Institucional</span>
+              <span class="eyebrow" data-en="About">Institucional</span>
             </div>
           </div>
 
           <div class="institucional__proof-wrap reveal">
             <div class="institucional__proof">
               <div class="avatar-stack" role="img"
-                aria-label="Fotos de quatro clientes atendidos pela Cristal Energy Power Generation">
+                aria-label="Fotos de quatro clientes atendidos pela Cristal Energy Power Generation"
+                data-en-aria-label="Photos of four clients served by Cristal Energy Power Generation">
                 <img src="Institucional/2.png" alt="" loading="lazy" width="112" height="112">
                 <img src="Institucional/3.png" alt="" loading="lazy" width="112" height="112">
                 <img src="Institucional/4.png" alt="" loading="lazy" width="112" height="112">
                 <img src="Institucional/5.png" alt="" loading="lazy" width="112" height="112">
               </div>
-              <p class="institucional__proof-text">+100 Clientes<br>Atendidos</p>
+              <p class="institucional__proof-text" data-en="+100 Clients<br>Served">+100 Clientes<br>Atendidos</p>
             </div>
           </div>
 
           <div class="institucional__grid reveal">
             <div class="institucional__col">
               <h2 id="institucional-title" class="visually-hidden">Institucional</h2>
-              <p>A Cristal Energy Power Generation atua para transformar desafios energéticos em oportunidades para
+              <p data-en="Cristal Energy Power Generation works to turn energy challenges into opportunities for companies, producers and large-scale operations.">A Cristal Energy Power Generation atua para transformar desafios energéticos em oportunidades para
                 empresas, produtores e grandes operações.</p>
-              <p style="margin-top:18px;">Unimos visão estratégica, soluções personalizadas e tecnologia para
+              <p style="margin-top:18px;" data-en="We combine strategic vision, tailored solutions and technology to develop projects aligned with each business's needs.">Unimos visão estratégica, soluções personalizadas e tecnologia para
                 desenvolver projetos alinhados às necessidades de cada negócio.</p>
             </div>
             <div class="institucional__col">
-              <p>Combinamos tecnologia, planejamento técnico e visão de negócio para transformar desafios de energia em
+              <p data-en="We combine technology, technical planning and business vision to turn energy challenges into efficient solutions, preparing every operation to grow with more savings and long-term operational security.">Combinamos tecnologia, planejamento técnico e visão de negócio para transformar desafios de energia em
                 soluções eficientes, preparando cada operação para crescer com mais economia e segurança operacional a
                 longo prazo.</p>
             </div>
@@ -1882,23 +2086,23 @@
           <div class="highlight-cards reveal">
             <article class="hcard hcard--navy">
               <div class="hcard__top">
-                <span class="eyebrow eyebrow--light">Anos de Mercado</span>
+                <span class="eyebrow eyebrow--light" data-en="Years in the Market">Anos de Mercado</span>
                 <span class="hcard__icon" aria-hidden="true"><img src="Institucional/Vector.svg" alt=""
                     loading="lazy"></span>
               </div>
               <p class="hcard__value">12+</p>
               <div class="hcard__body">
-                <p>A Cristal EPG desenvolve soluções com visão consultiva, engenharia aplicada e capacidade de entrega
+                <p data-en="Cristal EPG develops solutions with a consultative vision, applied engineering and delivery capacity for agribusiness, companies, integrators and strategic partners.">A Cristal EPG desenvolve soluções com visão consultiva, engenharia aplicada e capacidade de entrega
                   para agronegócio, empresas, integradores e parceiros estratégicos.</p>
               </div>
             </article>
 
             <article class="hcard hcard--gray hcard--split">
-              <p class="hcard__body-text">Atuação em diferentes demandas energéticas, do planejamento à implementação de
+              <p class="hcard__body-text" data-en="Presence across different energy needs, from planning to solution implementation.">Atuação em diferentes demandas energéticas, do planejamento à implementação de
                 soluções.</p>
               <img class="hcard__corner-img" src="Institucional/1.webp" alt="" loading="lazy" aria-hidden="true">
               <div class="hcard__value-wrap is-mid">
-                <span class="eyebrow">Projetos</span>
+                <span class="eyebrow" data-en="Projects">Projetos</span>
                 <p class="hcard__value">150+</p>
               </div>
             </article>
@@ -1906,11 +2110,11 @@
             <article class="hcard hcard--photo">
               <img class="hcard__bg" src="Institucional/imagem-card.webp" alt="" loading="lazy" aria-hidden="true">
               <div class="hcard__top">
-                <span class="eyebrow">Frentes de Atuação</span>
+                <span class="eyebrow" data-en="Areas of Expertise">Frentes de Atuação</span>
               </div>
               <p class="hcard__value">12+</p>
               <div class="hcard__body">
-                <p>Um portfólio integrado para atender empresas, agronegócio e operações de diferentes escalas.</p>
+                <p data-en="An integrated portfolio to serve companies, agribusiness and operations of different scales.">Um portfólio integrado para atender empresas, agronegócio e operações de diferentes escalas.</p>
               </div>
             </article>
           </div>
@@ -1923,14 +2127,19 @@
           <div class="strip-track">
             <ul class="strip" aria-hidden="false">
               <li><img src="Carrossel/1.png" alt="Equipe técnica realizando manutenção em painéis solares"
+                  data-en-alt="Technical team performing maintenance on solar panels"
                   loading="lazy" width="600" height="600"></li>
               <li><img src="Carrossel/2.png" alt="Vista aérea de painéis solares integrados à vegetação natural"
+                  data-en-alt="Aerial view of solar panels integrated with natural vegetation"
                   loading="lazy" width="600" height="600"></li>
-              <li><img src="Carrossel/3.png" alt="Extensa usina solar fotovoltaica em operação" loading="lazy"
+              <li><img src="Carrossel/3.png" alt="Extensa usina solar fotovoltaica em operação"
+                  data-en-alt="Large photovoltaic solar plant in operation" loading="lazy"
                   width="600" height="600"></li>
               <li><img src="Carrossel/4.png" alt="Equipe da Cristal Energy Power Generation em campo de energia solar"
+                  data-en-alt="Cristal Energy Power Generation team in the field at a solar energy site"
                   loading="lazy" width="600" height="600"></li>
               <li><img src="Carrossel/5.png" alt="Tecnologia aplicada ao agronegócio com monitoramento inteligente"
+                  data-en-alt="Technology applied to agribusiness with smart monitoring"
                   loading="lazy" width="600" height="600"></li>
             </ul>
             <ul class="strip" aria-hidden="true">
@@ -1951,11 +2160,11 @@
     <section class="servicos" id="solucoes" aria-labelledby="solucoes-title">
       <div class="container">
         <div class="servicos__head reveal">
-          <span class="eyebrow">Soluções</span>
+          <span class="eyebrow" data-en="Solutions">Soluções</span>
           <div>
-            <h2 id="solucoes-title">Do mercado livre à geração distribuída, soluções que conectam estratégia, tecnologia
+            <h2 id="solucoes-title" data-en="From the free energy market to distributed generation, solutions that connect strategy, technology and operation in a single energy journey.">Do mercado livre à geração distribuída, soluções que conectam estratégia, tecnologia
               e operação em uma mesma jornada energética.</h2>
-            <p style="margin-top:16px;">Da geração ao mercado livre, da infraestrutura aos projetos complexos, a Cristal
+            <p style="margin-top:16px;" data-en="From generation to the free market, from infrastructure to complex projects, Cristal Energy Power Generation connects different possibilities to build energy solutions aligned with each business's needs.">Da geração ao mercado livre, da infraestrutura aos projetos complexos, a Cristal
               Energy Power Generation conecta diferentes possibilidades para construir soluções energéticas alinhadas às
               necessidades de cada negócio.</p>
           </div>
@@ -1966,20 +2175,21 @@
             <div class="service-card__media">
               <img src="Serviços/1.webp"
                 alt="Painéis solares instalados em telhado residencial ao pôr do sol, com turbinas eólicas ao fundo"
+                data-en-alt="Solar panels installed on a residential roof at sunset, with wind turbines in the background"
                 loading="lazy" width="800" height="800">
               <div class="service-card__overlay">
                 <div>
                   <p class="service-card__num">1.</p>
-                  <p class="service-card__title">Assinatura de energia</p>
-                  <p class="service-card__text">Modelo orientado a comércios, pequenas empresas e integradores que
+                  <p class="service-card__title" data-en="Energy subscription">Assinatura de energia</p>
+                  <p class="service-card__text" data-en="A model aimed at retailers, small businesses and integrators seeking convenience, flexibility and an energy solution tailored to their business.">Modelo orientado a comércios, pequenas empresas e integradores que
                     buscam praticidade, flexibilidade e uma solução energética alinhada ao seu negócio.</p>
                 </div>
               </div>
             </div>
             <div class="service-card__body">
               <p class="service-card__num">1.</p>
-              <p class="service-card__title">Assinatura de energia</p>
-              <p class="service-card__text">Modelo orientado a comércios, pequenas empresas e integradores que
+              <p class="service-card__title" data-en="Energy subscription">Assinatura de energia</p>
+              <p class="service-card__text" data-en="A model aimed at retailers, small businesses and integrators seeking convenience, flexibility and an energy solution tailored to their business.">Modelo orientado a comércios, pequenas empresas e integradores que
                 buscam praticidade, flexibilidade e uma solução energética alinhada ao seu negócio.</p>
             </div>
           </li>
@@ -1987,62 +2197,65 @@
           <li class="service-card service-card--active" data-service-card>
             <div class="service-card__media">
               <img src="Serviços/2.webp" alt="Técnico em painel solar fazendo sinal de positivo, segurando tablet"
+                data-en-alt="Solar panel technician giving a thumbs up while holding a tablet"
                 loading="lazy" width="800" height="800">
               <div class="service-card__overlay">
                 <div>
                   <p class="service-card__num">2.</p>
-                  <p class="service-card__title">Mercado livre de energia</p>
-                  <p class="service-card__text">Estratégias para empresas que desejam otimizar seus custos, ampliar a
+                  <p class="service-card__title" data-en="Free energy market">Mercado livre de energia</p>
+                  <p class="service-card__text" data-en="Strategies for companies looking to optimize costs, increase predictability and make smarter decisions about energy procurement.">Estratégias para empresas que desejam otimizar seus custos, ampliar a
                     previsibilidade e tomar decisões mais inteligentes sobre a contratação de energia.</p>
                 </div>
               </div>
             </div>
             <div class="service-card__body">
               <p class="service-card__num">2.</p>
-              <p class="service-card__title">Mercado livre de energia</p>
-              <p class="service-card__text">Estratégias para empresas que desejam otimizar seus custos, ampliar a
+              <p class="service-card__title" data-en="Free energy market">Mercado livre de energia</p>
+              <p class="service-card__text" data-en="Strategies for companies looking to optimize costs, increase predictability and make smarter decisions about energy procurement.">Estratégias para empresas que desejam otimizar seus custos, ampliar a
                 previsibilidade e tomar decisões mais inteligentes sobre a contratação de energia.</p>
             </div>
           </li>
 
           <li class="service-card" data-service-card>
             <div class="service-card__media">
-              <img src="Serviços/3.webp" alt="Extensa usina solar fotovoltaica entre montanhas" loading="lazy"
+              <img src="Serviços/3.webp" alt="Extensa usina solar fotovoltaica entre montanhas"
+                data-en-alt="Large photovoltaic solar plant among mountains" loading="lazy"
                 width="800" height="800">
               <div class="service-card__overlay">
                 <div>
                   <p class="service-card__num">3.</p>
-                  <p class="service-card__title">BOT e leasing operacional</p>
-                  <p class="service-card__text">Estruturas pensadas para grandes operações que buscam acesso à
+                  <p class="service-card__title" data-en="BOT and operating lease">BOT e leasing operacional</p>
+                  <p class="service-card__text" data-en="Structures designed for large-scale operations seeking access to energy infrastructure through financial models aligned with each business's reality.">Estruturas pensadas para grandes operações que buscam acesso à
                     infraestrutura energética com modelos financeiros alinhados à realidade de cada negócio.</p>
                 </div>
               </div>
             </div>
             <div class="service-card__body">
               <p class="service-card__num">3.</p>
-              <p class="service-card__title">BOT e leasing operacional</p>
-              <p class="service-card__text">Estruturas pensadas para grandes operações que buscam acesso à
+              <p class="service-card__title" data-en="BOT and operating lease">BOT e leasing operacional</p>
+              <p class="service-card__text" data-en="Structures designed for large-scale operations seeking access to energy infrastructure through financial models aligned with each business's reality.">Estruturas pensadas para grandes operações que buscam acesso à
                 infraestrutura energética com modelos financeiros alinhados à realidade de cada negócio.</p>
             </div>
           </li>
 
           <li class="service-card" data-service-card>
             <div class="service-card__media">
-              <img src="Serviços/4.webp" alt="Trator agrícola operando em plantação ao entardecer" loading="lazy"
+              <img src="Serviços/4.webp" alt="Trator agrícola operando em plantação ao entardecer"
+                data-en-alt="Agricultural tractor working in a field at dusk" loading="lazy"
                 width="800" height="800">
               <div class="service-card__overlay">
                 <div>
                   <p class="service-card__num">4.</p>
-                  <p class="service-card__title">Energia para o agronegócio</p>
-                  <p class="service-card__text">Soluções para irrigação, BESS, microrredes e produção rural que exigem
+                  <p class="service-card__title" data-en="Energy for agribusiness">Energia para o agronegócio</p>
+                  <p class="service-card__text" data-en="Solutions for irrigation, BESS, microgrids and rural production that require efficiency, operational continuity and the capacity to keep up with growth.">Soluções para irrigação, BESS, microrredes e produção rural que exigem
                     eficiência, continuidade operacional e capacidade para acompanhar o crescimento.</p>
                 </div>
               </div>
             </div>
             <div class="service-card__body">
               <p class="service-card__num">4.</p>
-              <p class="service-card__title">Energia para o agronegócio</p>
-              <p class="service-card__text">Soluções para irrigação, BESS, microrredes e produção rural que exigem
+              <p class="service-card__title" data-en="Energy for agribusiness">Energia para o agronegócio</p>
+              <p class="service-card__text" data-en="Solutions for irrigation, BESS, microgrids and rural production that require efficiency, operational continuity and the capacity to keep up with growth.">Soluções para irrigação, BESS, microrredes e produção rural que exigem
                 eficiência, continuidade operacional e capacidade para acompanhar o crescimento.</p>
             </div>
           </li>
@@ -2050,21 +2263,22 @@
           <li class="service-card" data-service-card>
             <div class="service-card__media">
               <img src="Serviços/5.webp"
-                alt="Painéis solares com representação digital de inteligência artificial sobreposta" loading="lazy"
+                alt="Painéis solares com representação digital de inteligência artificial sobreposta"
+                data-en-alt="Solar panels with a digital artificial intelligence overlay" loading="lazy"
                 width="800" height="800">
               <div class="service-card__overlay">
                 <div>
                   <p class="service-card__num">5.</p>
-                  <p class="service-card__title">Integradores e parceiros</p>
-                  <p class="service-card__text">Suporte a integradores, parceiros comerciais e clientes finais,
+                  <p class="service-card__title" data-en="Integrators and partners">Integradores e parceiros</p>
+                  <p class="service-card__text" data-en="Support for integrators, commercial partners and end clients, connecting knowledge, structure and collaboration throughout the whole journey.">Suporte a integradores, parceiros comerciais e clientes finais,
                     conectando conhecimento, estrutura e colaboração ao longo de toda a jornada.</p>
                 </div>
               </div>
             </div>
             <div class="service-card__body">
               <p class="service-card__num">5.</p>
-              <p class="service-card__title">Integradores e parceiros</p>
-              <p class="service-card__text">Suporte a integradores, parceiros comerciais e clientes finais,
+              <p class="service-card__title" data-en="Integrators and partners">Integradores e parceiros</p>
+              <p class="service-card__text" data-en="Support for integrators, commercial partners and end clients, connecting knowledge, structure and collaboration throughout the whole journey.">Suporte a integradores, parceiros comerciais e clientes finais,
                 conectando conhecimento, estrutura e colaboração ao longo de toda a jornada.</p>
             </div>
           </li>
@@ -2077,12 +2291,12 @@
        ========================================================== -->
     <section id="ecossistema" aria-labelledby="ecossistema-title">
       <div class="container">
-        <span class="eyebrow reveal">Ecossistema</span>
+        <span class="eyebrow reveal" data-en="Ecosystem">Ecossistema</span>
         <div class="ecossistema__grid">
           <div class="ecossistema__intro reveal">
-            <h2 id="ecossistema-title" class="text-heading">Um ecossistema de soluções energéticas para diferentes
+            <h2 id="ecossistema-title" class="text-heading" data-en="An ecosystem of energy solutions for different challenges, operations and growth possibilities.">Um ecossistema de soluções energéticas para diferentes
               desafios, operações e possibilidades de crescimento.</h2>
-            <p style="margin-top:18px;">A Cristal Energy Power Generation conecta diferentes soluções e modelos de
+            <p style="margin-top:18px;" data-en="Cristal Energy Power Generation connects different solutions and operating models to serve operations that need more efficiency, predictability and energy intelligence.">A Cristal Energy Power Generation conecta diferentes soluções e modelos de
               atuação para atender operações que precisam de mais eficiência, previsibilidade e inteligência energética.
             </p>
           </div>
@@ -2091,33 +2305,33 @@
             <li class="eco-item">
               <span class="eco-item__icon" aria-hidden="true"><img src="Ecossistema/engenharia.svg" alt=""
                   loading="lazy"></span>
-              <span class="eco-item__cat">Engenharia</span>
-              <h3 class="eco-item__title">Engenharia que transforma desafios</h3>
-              <p class="eco-item__text">Projetamos soluções energéticas com visão técnica e estratégica, considerando as
+              <span class="eco-item__cat" data-en="Engineering">Engenharia</span>
+              <h3 class="eco-item__title" data-en="Engineering that transforms challenges">Engenharia que transforma desafios</h3>
+              <p class="eco-item__text" data-en="We design energy solutions with a technical and strategic vision, taking into account the needs and particularities of each operation.">Projetamos soluções energéticas com visão técnica e estratégica, considerando as
                 necessidades e particularidades de cada operação.</p>
             </li>
             <li class="eco-item">
               <span class="eco-item__icon" aria-hidden="true"><img src="Ecossistema/tecnologia.svg" alt=""
                   loading="lazy"></span>
-              <span class="eco-item__cat">Tecnologia</span>
-              <h3 class="eco-item__title">Soluções que acompanham o negócio</h3>
-              <p class="eco-item__text">Integramos geração, armazenamento e inteligência para criar operações mais
+              <span class="eco-item__cat" data-en="Technology">Tecnologia</span>
+              <h3 class="eco-item__title" data-en="Solutions that keep pace with your business">Soluções que acompanham o negócio</h3>
+              <p class="eco-item__text" data-en="We integrate generation, storage and intelligence to create operations that are more efficient, flexible and ready for new challenges.">Integramos geração, armazenamento e inteligência para criar operações mais
                 eficientes, flexíveis e preparadas para novos desafios.</p>
             </li>
             <li class="eco-item">
               <span class="eco-item__icon" aria-hidden="true"><img src="Ecossistema/inteligência.svg" alt=""
                   loading="lazy"></span>
-              <span class="eco-item__cat">Inteligência</span>
-              <h3 class="eco-item__title">Inteligência para decidir melhor</h3>
-              <p class="eco-item__text">Conectamos dados, tecnologia e conhecimento de mercado para apoiar decisões mais
+              <span class="eco-item__cat" data-en="Intelligence">Inteligência</span>
+              <h3 class="eco-item__title" data-en="Intelligence for better decisions">Inteligência para decidir melhor</h3>
+              <p class="eco-item__text" data-en="We connect data, technology and market knowledge to support smarter, more strategic energy decisions.">Conectamos dados, tecnologia e conhecimento de mercado para apoiar decisões mais
                 eficientes e estratégicas em energia.</p>
             </li>
             <li class="eco-item">
               <span class="eco-item__icon" aria-hidden="true"><img src="Ecossistema/Vector-1.svg" alt=""
                   loading="lazy"></span>
-              <span class="eco-item__cat">Sustentabilidade</span>
-              <h3 class="eco-item__title">Energia pensada para o futuro</h3>
-              <p class="eco-item__text">Desenvolvemos projetos com uma visão de longo prazo, buscando mais eficiência,
+              <span class="eco-item__cat" data-en="Sustainability">Sustentabilidade</span>
+              <h3 class="eco-item__title" data-en="Energy designed for the future">Energia pensada para o futuro</h3>
+              <p class="eco-item__text" data-en="We develop projects with a long-term vision, pursuing more efficiency, sustainability and adaptability.">Desenvolvemos projetos com uma visão de longo prazo, buscando mais eficiência,
                 sustentabilidade e capacidade de adaptação.</p>
             </li>
           </ul>
@@ -2131,7 +2345,7 @@
     <section class="contato" id="contato" aria-labelledby="contato-title">
       <div class="container contato__grid">
         <div class="contato__info reveal">
-          <span class="eyebrow eyebrow--light">Contato</span>
+          <span class="eyebrow eyebrow--light" data-en="Contact">Contato</span>
           <div style="margin-top:24px;">
             <a href="#topo" class="logo-link" aria-label="Cristal Energy Power Generation">
               <img src="Logo/Group 2.svg" alt="Cristal Energy Power Generation" loading="lazy" width="219" height="45">
@@ -2151,7 +2365,8 @@
             </li>
             <li>
               <a href="https://instagram.com/cristalepg" target="_blank" rel="noopener noreferrer"
-                aria-label="Instagram da Cristal Energy Power Generation, abre em nova aba">
+                aria-label="Instagram da Cristal Energy Power Generation, abre em nova aba"
+                data-en-aria-label="Cristal Energy Power Generation Instagram, opens in a new tab">
                 <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
                   aria-hidden="true">
                   <rect x="3" y="3" width="18" height="18" rx="5" />
@@ -2176,42 +2391,44 @@
 
         <div class="reveal contact-form-wrap">
           <form class="contact-form" id="contactForm" novalidate>
-            <h3 id="contato-title">Envie uma mensagem para nossa equipe</h3>
-            <p class="contact-form__intro">Use o formulário abaixo para iniciar uma conversa comercial ou institucional.
+            <h3 id="contato-title" data-en="Send a message to our team">Envie uma mensagem para nossa equipe</h3>
+            <p class="contact-form__intro" data-en="Use the form below to start a business or institutional conversation. When you submit, we'll open your email app with the message ready to send to contato@cristalepg.com.br.">Use o formulário abaixo para iniciar uma conversa comercial ou institucional.
               Ao enviar, abrimos seu aplicativo de e-mail com a mensagem pronta para contato@cristalepg.com.br.</p>
 
             <div class="form-row">
-              <label for="field-nome">Nome</label>
-              <input type="text" id="field-nome" name="nome" placeholder="Insira seu nome" autocomplete="name" required>
+              <label for="field-nome" data-en="Name">Nome</label>
+              <input type="text" id="field-nome" name="nome" placeholder="Insira seu nome" data-en-placeholder="Enter your name" autocomplete="name" required>
             </div>
             <div class="form-row">
-              <label for="field-email">E-mail</label>
+              <label for="field-email" data-en="Email">E-mail</label>
               <input type="email" id="field-email" name="email" placeholder="exemplo@gmail.com" autocomplete="email"
                 required>
             </div>
             <div class="form-row">
-              <label for="field-telefone">Telefone</label>
+              <label for="field-telefone" data-en="Phone">Telefone</label>
               <input type="tel" id="field-telefone" name="telefone" placeholder="+55 (99) 99999-9999"
                 autocomplete="tel">
             </div>
             <div class="form-row">
-              <label for="field-empresa">Empresa</label>
-              <input type="text" id="field-empresa" name="empresa" placeholder="Razão Social LTDA"
+              <label for="field-empresa" data-en="Company">Empresa</label>
+              <input type="text" id="field-empresa" name="empresa" placeholder="Razão Social LTDA" data-en-placeholder="Company legal name"
                 autocomplete="organization">
             </div>
             <div class="form-row">
-              <label for="field-mensagem">Mensagem</label>
+              <label for="field-mensagem" data-en="Message">Mensagem</label>
               <textarea id="field-mensagem" name="mensagem"
-                placeholder="Olá, gostaria de conhecer melhor os serviços da Cristal EPG"></textarea>
+                placeholder="Olá, gostaria de conhecer melhor os serviços da Cristal EPG"
+                data-en-placeholder="Hi, I'd like to learn more about Cristal EPG's services"></textarea>
             </div>
 
-            <button type="submit" class="btn btn--navy">Fale com um especialista!</button>
+            <button type="submit" class="btn btn--navy" data-en="Talk to a specialist!">Fale com um especialista!</button>
           </form>
         </div>
       </div>
 
       <div class="contato__photo">
-        <img src="Contato/1.webp" alt="Painéis solares residenciais instalados em telhado de cerâmica" loading="lazy"
+        <img src="Contato/1.webp" alt="Painéis solares residenciais instalados em telhado de cerâmica"
+          data-en-alt="Residential solar panels installed on a ceramic tile roof" loading="lazy"
           width="1000" height="1000">
       </div>
     </section>
@@ -2221,72 +2438,72 @@
        ========================================================== -->
     <section id="faq" aria-labelledby="faq-title">
       <div class="container">
-        <span class="eyebrow reveal">Perguntas frequentes</span>
+        <span class="eyebrow reveal" data-en="Frequently asked questions">Perguntas frequentes</span>
         <div class="faq__grid">
           <div class="reveal">
-            <h2 id="faq-title" class="text-heading">Tudo o que você precisa saber antes de dar o próximo passo.</h2>
+            <h2 id="faq-title" class="text-heading" data-en="Everything you need to know before taking the next step.">Tudo o que você precisa saber antes de dar o próximo passo.</h2>
           </div>
 
           <div class="faq-list reveal">
             <details class="faq-item" open>
               <summary class="faq-item__q">
-                <span>Quais soluções a Cristal Energy Power Generation oferece?</span>
+                <span data-en="What solutions does Cristal Energy Power Generation offer?">Quais soluções a Cristal Energy Power Generation oferece?</span>
                 <svg class="faq-item__chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                   stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                   <polyline points="6 9 12 15 18 9" />
                 </svg>
               </summary>
-              <div class="faq-item__a">Atuamos com diferentes soluções energéticas, incluindo geração solar
+              <div class="faq-item__a" data-en="We work with different energy solutions, including photovoltaic solar generation, energy subscription, the Free Energy Market, BOT and operating lease, agribusiness solutions, large-scale projects, as well as support for integrators and partners.">Atuamos com diferentes soluções energéticas, incluindo geração solar
                 fotovoltaica, assinatura de energia, Mercado Livre de Energia, BOT e leasing operacional, soluções para
                 o agronegócio, projetos de grande porte, além de suporte a integradores e parceiros.</div>
             </details>
 
             <details class="faq-item">
               <summary class="faq-item__q">
-                <span>A Cristal atende empresas de diferentes portes?</span>
+                <span data-en="Does Cristal serve companies of different sizes?">A Cristal atende empresas de diferentes portes?</span>
                 <svg class="faq-item__chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                   stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                   <polyline points="6 9 12 15 18 9" />
                 </svg>
               </summary>
-              <div class="faq-item__a">Sim. Desenvolvemos soluções para diferentes perfis de operação, desde comércios e
+              <div class="faq-item__a" data-en="Yes. We develop solutions for different operation profiles, from retailers and small businesses to larger-scale companies and projects.">Sim. Desenvolvemos soluções para diferentes perfis de operação, desde comércios e
                 pequenas empresas até empresas e projetos de maior escala.</div>
             </details>
 
             <details class="faq-item">
               <summary class="faq-item__q">
-                <span>Como saber qual solução de energia é ideal para o meu negócio?</span>
+                <span data-en="How do I know which energy solution is right for my business?">Como saber qual solução de energia é ideal para o meu negócio?</span>
                 <svg class="faq-item__chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                   stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                   <polyline points="6 9 12 15 18 9" />
                 </svg>
               </summary>
-              <div class="faq-item__a">Cada operação possui necessidades e características diferentes. Analisamos o
+              <div class="faq-item__a" data-en="Every operation has different needs and characteristics. We analyze the energy scenario to identify the alternatives best suited to each business's profile, goals and demand.">Cada operação possui necessidades e características diferentes. Analisamos o
                 cenário energético para identificar as alternativas mais adequadas ao perfil, objetivos e demanda de
                 cada negócio.</div>
             </details>
 
             <details class="faq-item">
               <summary class="faq-item__q">
-                <span>A Cristal oferece soluções para o agronegócio?</span>
+                <span data-en="Does Cristal offer solutions for agribusiness?">A Cristal oferece soluções para o agronegócio?</span>
                 <svg class="faq-item__chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                   stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                   <polyline points="6 9 12 15 18 9" />
                 </svg>
               </summary>
-              <div class="faq-item__a">Sim. Atuamos com soluções voltadas às demandas energéticas do agronegócio,
+              <div class="faq-item__a" data-en="Yes. We work with solutions aimed at agribusiness energy needs, including applications for irrigation, BESS, microgrids and other rural operation requirements.">Sim. Atuamos com soluções voltadas às demandas energéticas do agronegócio,
                 incluindo aplicações para irrigação, BESS, microrredes e outras necessidades da operação rural.</div>
             </details>
 
             <details class="faq-item">
               <summary class="faq-item__q">
-                <span>Como funciona o primeiro contato com a Cristal?</span>
+                <span data-en="How does the first contact with Cristal work?">Como funciona o primeiro contato com a Cristal?</span>
                 <svg class="faq-item__chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                   stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                   <polyline points="6 9 12 15 18 9" />
                 </svg>
               </summary>
-              <div class="faq-item__a">O primeiro passo é entender sua operação, suas necessidades e seus objetivos. A
+              <div class="faq-item__a" data-en="The first step is understanding your operation, needs and goals. Based on that information, we evaluate the possibilities and point to the most suitable energy solution.">O primeiro passo é entender sua operação, suas necessidades e seus objetivos. A
                 partir dessas informações, avaliamos as possibilidades e direcionamos a solução energética mais
                 adequada.</div>
             </details>
@@ -2302,12 +2519,13 @@
       <div class="cta-final__media">
         <img src="CTA Final/1.jpg"
           alt="Equipe técnica da Cristal Energy Power Generation analisando projeto ao lado de painéis solares"
+          data-en-alt="Cristal Energy Power Generation technical team reviewing a project next to solar panels"
           loading="lazy" width="6000" height="4000">
       </div>
       <div class="container cta-final__content">
-        <h2 id="cta-final-title">Libere todo o potencial da sua energia.</h2>
-        <p class="visually-hidden">Transforme energia em estratégia para o futuro do seu negócio.</p>
-        <a href="#contato" class="btn btn--primary">Entre em contato</a>
+        <h2 id="cta-final-title" data-en="Unlock your energy's full potential.">Libere todo o potencial da sua energia.</h2>
+        <p class="visually-hidden" data-en="Turn energy into strategy for the future of your business.">Transforme energia em estratégia para o futuro do seu negócio.</p>
+        <a href="#contato" class="btn btn--primary" data-en="Get in touch">Entre em contato</a>
       </div>
     </section>
 
@@ -2322,22 +2540,22 @@
         <a href="#topo" class="logo-link" aria-label="Cristal Energy Power Generation">
           <img src="Logo/Group 2.svg" alt="Cristal Energy Power Generation" loading="lazy" width="219" height="45">
         </a>
-        <p>Soluções inteligentes em energia para empresas, operações e negócios que pensam no futuro.</p>
+        <p data-en="Smart energy solutions for companies, operations and businesses that think about the future.">Soluções inteligentes em energia para empresas, operações e negócios que pensam no futuro.</p>
       </div>
 
-      <nav class="footer-col" aria-label="Links do rodapé">
-        <h4>Links</h4>
+      <nav class="footer-col" aria-label="Links do rodapé" data-en-aria-label="Footer links">
+        <h4 data-en="Links">Links</h4>
         <ul>
-          <li><a href="#institucional">Institucional</a></li>
-          <li><a href="#solucoes">Soluções</a></li>
-          <li><a href="#projetos">Projetos</a></li>
-          <li><a href="#ecossistema">Ecossistema</a></li>
-          <li><a href="#contato">Contato</a></li>
+          <li><a href="#institucional" data-en="About">Institucional</a></li>
+          <li><a href="#solucoes" data-en="Solutions">Soluções</a></li>
+          <li><a href="#projetos" data-en="Projects">Projetos</a></li>
+          <li><a href="#ecossistema" data-en="Ecosystem">Ecossistema</a></li>
+          <li><a href="#contato" data-en="Contact">Contato</a></li>
         </ul>
       </nav>
 
       <div class="footer-col">
-        <h4>Contato</h4>
+        <h4 data-en="Contact">Contato</h4>
         <ul>
           <li>
             <a class="contact-line" href="mailto:contato@cristalepg.com.br">
@@ -2351,7 +2569,8 @@
           </li>
           <li>
             <a class="contact-line" href="https://instagram.com/cristalepg" target="_blank" rel="noopener noreferrer"
-              aria-label="Instagram da Cristal Energy Power Generation, abre em nova aba">
+              aria-label="Instagram da Cristal Energy Power Generation, abre em nova aba"
+              data-en-aria-label="Cristal Energy Power Generation Instagram, opens in a new tab">
               <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
                 aria-hidden="true">
                 <rect x="3" y="3" width="18" height="18" rx="5" />
@@ -2376,13 +2595,122 @@
     </div>
 
     <div class="site-footer__bottom">
-      <p>Todos os direitos reservados - Cristal Energy Power Generation © 2026</p>
+      <p data-en="All rights reserved - Cristal Energy Power Generation © 2026">Todos os direitos reservados - Cristal Energy Power Generation © 2026</p>
     </div>
   </footer>
 
   <script>
     (function () {
       "use strict";
+
+      /* ---------- Switch de idioma PT/EN ---------- */
+      var LANG_KEY = 'cristal-epg-lang';
+      var pageTitleEl = document.getElementById('pageTitle');
+      var pageDescEl = document.getElementById('pageDescription');
+      var TITLE_PT = pageTitleEl.textContent;
+      var TITLE_EN = 'Cristal Energy Power Generation | Smart solar energy for businesses';
+      var DESC_PT = pageDescEl.getAttribute('content');
+      var DESC_EN = 'Energy solutions built for different operation profiles, combining technology, strategy and efficiency to transform how your company uses energy.';
+
+      var langBtnPt = document.getElementById('langBtnPt');
+      var langBtnEn = document.getElementById('langBtnEn');
+      var currentLang = 'pt';
+
+      function applyLanguage(lang) {
+        currentLang = lang;
+        var isEn = lang === 'en';
+        document.documentElement.setAttribute('lang', isEn ? 'en' : 'pt-BR');
+
+        document.querySelectorAll('[data-en]').forEach(function (el) {
+          if (!el.hasAttribute('data-pt')) {
+            el.setAttribute('data-pt', el.innerHTML);
+          }
+          el.innerHTML = isEn ? el.getAttribute('data-en') : el.getAttribute('data-pt');
+        });
+
+        document.querySelectorAll('[data-en-aria-label]').forEach(function (el) {
+          if (!el.hasAttribute('data-pt-aria-label')) {
+            el.setAttribute('data-pt-aria-label', el.getAttribute('aria-label') || '');
+          }
+          el.setAttribute('aria-label', isEn ? el.getAttribute('data-en-aria-label') : el.getAttribute('data-pt-aria-label'));
+        });
+
+        document.querySelectorAll('[data-en-alt]').forEach(function (el) {
+          if (!el.hasAttribute('data-pt-alt')) {
+            el.setAttribute('data-pt-alt', el.getAttribute('alt') || '');
+          }
+          el.setAttribute('alt', isEn ? el.getAttribute('data-en-alt') : el.getAttribute('data-pt-alt'));
+        });
+
+        document.querySelectorAll('[data-en-placeholder]').forEach(function (el) {
+          if (!el.hasAttribute('data-pt-placeholder')) {
+            el.setAttribute('data-pt-placeholder', el.getAttribute('placeholder') || '');
+          }
+          el.setAttribute('placeholder', isEn ? el.getAttribute('data-en-placeholder') : el.getAttribute('data-pt-placeholder'));
+        });
+
+        pageTitleEl.textContent = isEn ? TITLE_EN : TITLE_PT;
+        pageDescEl.setAttribute('content', isEn ? DESC_EN : DESC_PT);
+
+        langBtnPt.classList.toggle('is-active', !isEn);
+        langBtnEn.classList.toggle('is-active', isEn);
+        langBtnPt.setAttribute('aria-pressed', String(!isEn));
+        langBtnEn.setAttribute('aria-pressed', String(isEn));
+
+        try { window.localStorage.setItem(LANG_KEY, lang); } catch (err) { /* localStorage indisponível: segue sem persistir */ }
+      }
+
+      langBtnPt.addEventListener('click', function () { applyLanguage('pt'); });
+      langBtnEn.addEventListener('click', function () { applyLanguage('en'); });
+
+      var savedLang = null;
+      try { savedLang = window.localStorage.getItem(LANG_KEY); } catch (err) { /* segue sem idioma salvo */ }
+      if (savedLang === 'en') { applyLanguage('en'); }
+
+      /* ---------- Header flutuante: fundo + blur ao rolar, some/aparece
+         conforme a direção do scroll ---------- */
+      var siteHeader = document.getElementById('siteHeader');
+      var headerSpacer = document.getElementById('headerSpacer');
+      var SCROLL_THRESHOLD = 80; // px rolados antes do header virar "flutuante"
+      var HIDE_THRESHOLD = 12; // px de scroll pra baixo antes de esconder (evita flicker em micro-scrolls)
+      var lastScrollY = window.scrollY || window.pageYOffset || 0;
+      var headerTicking = false;
+
+      function syncHeaderSpacer() {
+        headerSpacer.style.height = siteHeader.classList.contains('site-header--scrolled')
+          ? siteHeader.offsetHeight + 'px'
+          : '0px';
+      }
+
+      function updateHeaderOnScroll() {
+        var currentY = window.scrollY || window.pageYOffset || 0;
+        var delta = currentY - lastScrollY;
+
+        var shouldFloat = currentY > SCROLL_THRESHOLD;
+        siteHeader.classList.toggle('site-header--scrolled', shouldFloat);
+
+        if (!shouldFloat) {
+          siteHeader.classList.remove('site-header--hidden');
+        } else if (delta > HIDE_THRESHOLD) {
+          siteHeader.classList.add('site-header--hidden');
+        } else if (delta < -HIDE_THRESHOLD || currentY <= SCROLL_THRESHOLD) {
+          siteHeader.classList.remove('site-header--hidden');
+        }
+
+        syncHeaderSpacer();
+        lastScrollY = currentY;
+        headerTicking = false;
+      }
+
+      window.addEventListener('scroll', function () {
+        if (!headerTicking) {
+          window.requestAnimationFrame(updateHeaderOnScroll);
+          headerTicking = true;
+        }
+      }, { passive: true });
+
+      window.addEventListener('resize', syncHeaderSpacer);
+      updateHeaderOnScroll();
 
       /* ---------- Menu mobile ---------- */
       var navToggle = document.getElementById('navToggle');
@@ -2496,8 +2824,40 @@
         window.addEventListener('resize', lockFaqListHeight);
       }
 
+      /* ---------- Animação de entrada da hero (fade + contagem dos números) ---------- */
+      var prefersReducedHero = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+      function animateCount(el, target, duration) {
+        var start = performance.now();
+        function tick(now) {
+          var progress = Math.min((now - start) / duration, 1);
+          var eased = 1 - Math.pow(1 - progress, 3); // ease-out cúbico
+          el.textContent = Math.round(target * eased);
+          if (progress < 1) {
+            requestAnimationFrame(tick);
+          } else {
+            el.textContent = target;
+          }
+        }
+        requestAnimationFrame(tick);
+      }
+
+      var heroNums = document.querySelectorAll('.stat__num');
+      if (prefersReducedHero) {
+        document.querySelectorAll('.hero-intro').forEach(function (el) { el.classList.add('is-visible'); });
+        heroNums.forEach(function (el) { el.textContent = el.getAttribute('data-count-to'); });
+      } else {
+        window.requestAnimationFrame(function () {
+          document.querySelectorAll('.hero-intro').forEach(function (el) { el.classList.add('is-visible'); });
+        });
+        heroNums.forEach(function (el) {
+          var target = parseInt(el.getAttribute('data-count-to'), 10) || 0;
+          setTimeout(function () { animateCount(el, target, 1100); }, 620);
+        });
+      }
+
       /* ---------- Reveal on scroll (sutil) ---------- */
-      var prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      var prefersReduced = prefersReducedHero;
       if (!prefersReduced && 'IntersectionObserver' in window) {
         var observer = new IntersectionObserver(function (entries) {
           entries.forEach(function (entry) {
@@ -2522,19 +2882,21 @@
         var empresa = document.getElementById('field-empresa').value.trim();
         var mensagem = document.getElementById('field-mensagem').value.trim();
 
+        var isEn = currentLang === 'en';
+
         if (!nome || !email) {
-          alert('Por favor, preencha ao menos Nome e E-mail para continuar.');
+          alert(isEn ? 'Please fill in at least Name and Email to continue.' : 'Por favor, preencha ao menos Nome e E-mail para continuar.');
           return;
         }
 
-        var corpo = 'Nome: ' + nome + '\n' +
+        var corpo = (isEn ? 'Name: ' : 'Nome: ') + nome + '\n' +
           'E-mail: ' + email + '\n' +
-          (telefone ? 'Telefone: ' + telefone + '\n' : '') +
-          (empresa ? 'Empresa: ' + empresa + '\n' : '') +
-          '\nMensagem:\n' + (mensagem || '(não informada)');
+          (telefone ? (isEn ? 'Phone: ' : 'Telefone: ') + telefone + '\n' : '') +
+          (empresa ? (isEn ? 'Company: ' : 'Empresa: ') + empresa + '\n' : '') +
+          (isEn ? '\nMessage:\n' : '\nMensagem:\n') + (mensagem || (isEn ? '(not provided)' : '(não informada)'));
 
         var mailto = 'mailto:contato@cristalepg.com.br' +
-          '?subject=' + encodeURIComponent('Contato via site — ' + nome) +
+          '?subject=' + encodeURIComponent((isEn ? 'Contact via website — ' : 'Contato via site — ') + nome) +
           '&body=' + encodeURIComponent(corpo);
 
         window.location.href = mailto;
