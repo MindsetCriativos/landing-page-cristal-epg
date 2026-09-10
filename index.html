@@ -2819,7 +2819,9 @@
 
           <ul class="contato__list">
             <li>
-              <a href="mailto:contato@cristalepc.com">
+              <a href="mailto:contato@cristalepc.com?subject=Contato%20via%20site&amp;body=Ol%C3%A1%2C%20gostaria%20de%20entender%20como%20a%20Cristal%20EPC%20pode%20ajudar%20na%20minha%20opera%C3%A7%C3%A3o."
+                class="js-mailto-cta" data-en-href="mailto:contato@cristalepc.com?subject=Contact%20via%20website&amp;body=Hello%2C%20I%27d%20like%20to%20understand%20how%20Cristal%20EPC%20can%20help%20my%20operation."
+                data-fr-href="mailto:contato@cristalepc.com?subject=Contact%20via%20le%20site&amp;body=Bonjour%2C%20j%27aimerais%20comprendre%20comment%20Cristal%20EPC%20peut%20aider%20mon%20activit%C3%A9.">
                 <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
                   aria-hidden="true">
                   <rect x="2" y="4" width="20" height="16" rx="2" />
@@ -3069,7 +3071,10 @@
         <h4 data-en="Contact" data-fr="Contact">Contato</h4>
         <ul>
           <li>
-            <a class="contact-line" href="mailto:contato@cristalepc.com">
+            <a class="contact-line js-mailto-cta"
+              href="mailto:contato@cristalepc.com?subject=Contato%20via%20site&amp;body=Ol%C3%A1%2C%20gostaria%20de%20entender%20como%20a%20Cristal%20EPC%20pode%20ajudar%20na%20minha%20opera%C3%A7%C3%A3o."
+              data-en-href="mailto:contato@cristalepc.com?subject=Contact%20via%20website&amp;body=Hello%2C%20I%27d%20like%20to%20understand%20how%20Cristal%20EPC%20can%20help%20my%20operation."
+              data-fr-href="mailto:contato@cristalepc.com?subject=Contact%20via%20le%20site&amp;body=Bonjour%2C%20j%27aimerais%20comprendre%20comment%20Cristal%20EPC%20peut%20aider%20mon%20activit%C3%A9.">
               <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
                 aria-hidden="true">
                 <rect x="2" y="4" width="20" height="16" rx="2" />
@@ -3202,6 +3207,13 @@
             el.setAttribute('data-pt-placeholder', el.getAttribute('placeholder') || '');
           }
           el.setAttribute('placeholder', readLangValue(el, '-placeholder', lang));
+        });
+
+        document.querySelectorAll('[data-en-href]').forEach(function (el) {
+          if (!el.hasAttribute('data-pt-href')) {
+            el.setAttribute('data-pt-href', el.getAttribute('href') || '');
+          }
+          el.setAttribute('href', readLangValue(el, '-href', lang));
         });
 
         pageTitleEl.textContent = TITLES[lang];
@@ -3443,9 +3455,9 @@
         var mensagem = document.getElementById('field-mensagem').value.trim();
 
         var formStrings = {
-          pt: { fillRequired: 'Por favor, preencha ao menos Nome e E-mail para continuar.', name: 'Nome: ', phone: 'Telefone: ', company: 'Empresa: ', message: '\nMensagem:\n', notProvided: '(não informada)', subject: 'Contato via site — ' },
-          en: { fillRequired: 'Please fill in at least Name and Email to continue.', name: 'Name: ', phone: 'Phone: ', company: 'Company: ', message: '\nMessage:\n', notProvided: '(not provided)', subject: 'Contact via website — ' },
-          fr: { fillRequired: 'Merci de renseigner au moins le nom et l\'e-mail pour continuer.', name: 'Nom : ', phone: 'Téléphone : ', company: 'Entreprise : ', message: '\nMessage :\n', notProvided: '(non renseigné)', subject: 'Contact via le site — ' }
+          pt: { fillRequired: 'Por favor, preencha ao menos Nome e E-mail para continuar.', intro: 'Olá, gostaria de entender como a Cristal EPC pode ajudar na minha operação.\n', name: 'Nome: ', phone: 'Telefone: ', company: 'Empresa: ', message: '\nMensagem:\n', notProvided: '(não informada)', subject: 'Contato via site — ' },
+          en: { fillRequired: 'Please fill in at least Name and Email to continue.', intro: 'Hello, I\'d like to understand how Cristal EPC can help my operation.\n', name: 'Name: ', phone: 'Phone: ', company: 'Company: ', message: '\nMessage:\n', notProvided: '(not provided)', subject: 'Contact via website — ' },
+          fr: { fillRequired: 'Merci de renseigner au moins le nom et l\'e-mail pour continuer.', intro: 'Bonjour, j\'aimerais comprendre comment Cristal EPC peut aider mon activité.\n', name: 'Nom : ', phone: 'Téléphone : ', company: 'Entreprise : ', message: '\nMessage :\n', notProvided: '(non renseigné)', subject: 'Contact via le site — ' }
         };
         var t = formStrings[currentLang] || formStrings.pt;
 
@@ -3454,7 +3466,8 @@
           return;
         }
 
-        var corpo = t.name + nome + '\n' +
+        var corpo = t.intro + '\n' +
+          t.name + nome + '\n' +
           'E-mail: ' + email + '\n' +
           (telefone ? t.phone + telefone + '\n' : '') +
           (empresa ? t.company + empresa + '\n' : '') +
